@@ -1,20 +1,48 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import StartPage from './WYA-app/StartPage';
+import { styleSheet } from 'react-native';
+import { useState } from 'react';
+
 
 export default function App() {
+  const [titleText, setTitleText] = useState("W Y A");
+  const bodyText = "WHERE YOU AT?";
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+  
+    <View style={styles.page}>
+                   <Text style={styles.titleText}>{titleText}</Text>
+    <Text style={styles.bodyText}>{bodyText}</Text>
+     <StartPage style= {styles.content} /> 
     </View>
   );
 }
-
+const baseColour = "#6d91d9";
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+
+  titleText : {
+    fontSize: 100,
+    fontWeight: "bold",
+    color: "#F5F5F5",
+    marginBottom: 20,
+    
   },
+  bodyText : {
+    fontSize: 25,
+    fontWeight: "bold",
+    color: "#EBEBEB",
+    marginBottom: 200,
+  },
+
+page: {
+  flex: 1,
+    backgroundColor: '#6d91d9',
+    justifyContent: 'center',
+    alignItems: 'center',
+},
+content: {
+flex: 1,
+  alignContent: 'center',
+  
+}
 });
