@@ -1,9 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import StartPage from './WYA-app/StartPage';
 import { styleSheet } from 'react-native';
 import { useState } from 'react';
 
+
+import StartPage from './WYA-app/StartPage';
+import LoginPage from './WYA-app/LoginPage';
 
 export default function App() {
   const [titleText, setTitleText] = useState("W Y A");
@@ -13,7 +15,7 @@ export default function App() {
     <View style={styles.page}>
                    <Text style={styles.titleText}>{titleText}</Text>
     <Text style={styles.bodyText}>{bodyText}</Text>
-     <StartPage style= {styles.content} /> 
+     <LoginPage style= {styles.content} /> 
     </View>
   );
 }
