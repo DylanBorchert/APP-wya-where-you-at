@@ -13,9 +13,11 @@ export default function App() {
   return (
   
     <View style={styles.page}>
-                   <Text style={styles.titleText}>{titleText}</Text>
-    <Text style={styles.bodyText}>{bodyText}</Text>
-     <LoginPage style= {styles.content} /> 
+      <View style={styles.mainTextGroup}>
+        <Text style={styles.titleText}>{titleText}</Text>
+        <Text style={styles.bodyText}>{bodyText}</Text>
+      </View>    
+      <LoginPage style= {styles.content} /> 
     </View>
   );
 }
@@ -33,7 +35,11 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: "bold",
     color: "#EBEBEB",
-    marginBottom: 200,
+  },
+  mainTextGroup : {
+    alignItems: 'center',
+    alignContent: 'center',
+    marginBottom: 100,
   },
 
 page: {
