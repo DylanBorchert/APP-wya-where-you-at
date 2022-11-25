@@ -1,5 +1,5 @@
-import { View, Button } from "react-native";
-import Header from "./Header";
+import { View, Button, StyleSheet} from "react-native";
+import Top from "./Top";
 
 const HomePage = ({ navigation }) => {
     
@@ -11,7 +11,7 @@ const HomePage = ({ navigation }) => {
     return (
     
       <View>
-        <Header />
+        <Top styles= {{width:400, height:400}}  />
         <Button title='Start' onPress={pressHandler}></Button>
       </View>
     )

@@ -4,21 +4,24 @@ import { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native';
 import { ScrollView } from 'react-native';
+import Top from './Top';
 // import {Form, FormItem} from 'react-native-form-component';
 
-const SIgnUpPage = () => {
+const SignUpPage = () => {
 
     const [buttonText, setButtonText] = useState("Submit");
 
 
     return(
+      
         <View style={styles.containter} id="divStartPage">
+          <Top />
            <View style={{height: 500}} >
         <ScrollView style={styles.ScrollContainer}>
 
             <View style={styles.titleGroup}>
-            <Text style={styles.titleText}>Login</Text>
-            <Text style={styles.text}>please sign in to continue</Text>
+            <Text style={styles.titleText}>Sign-Up</Text>
+            {/* <Text style={styles.text}>please sign in to continue</Text> */}
             </View>
 
 
@@ -53,7 +56,7 @@ const SIgnUpPage = () => {
 export default SignUpPage;
 
 const styles = StyleSheet.create({
-
+// at some point add a notification to tell the  user we have created their account.
   containter: {
       flex: 1,
       height: 400,

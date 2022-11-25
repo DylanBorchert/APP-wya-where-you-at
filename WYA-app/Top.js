@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button} from 'react-native';
 import { useState } from 'react';
+import { createNativeWrapper } from 'react-native-gesture-handler';
 
-const Header = ({ navigation }) => {
+const Top = () => {
 
     const [titleText, setTitleText] = useState("W Y A");
     const bodyText = "WHERE YOU AT?";
@@ -12,7 +13,7 @@ const Header = ({ navigation }) => {
     <View style={styles.mainTextGroup}>
       <Text style={styles.titleText}>{titleText}</Text>
       <Text style={styles.bodyText}>{bodyText}</Text>
-      
+
     </View>
   </View>
    )
@@ -42,9 +43,11 @@ const styles = StyleSheet.create({
 
 page: {
   flex: 1,
+  width: "auto",
     backgroundColor: '#6d91d9',
     justifyContent: 'center',
     alignItems: 'center',
+    alignContent: "center",
 },
 content: {
 flex: 1,
@@ -53,4 +56,4 @@ flex: 1,
 }
 });
 
-export default Header;
+export default Top;
