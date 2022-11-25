@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 import StartPage from './WYA-app/StartPage';
 import LoginPage from './WYA-app/LoginPage';
-
+import SignUpPage from './WYA-app/SignUpPage';
 export default function App() {
   const [titleText, setTitleText] = useState("W Y A");
   const bodyText = "WHERE YOU AT?";
@@ -17,7 +17,7 @@ export default function App() {
         <Text style={styles.titleText}>{titleText}</Text>
         <Text style={styles.bodyText}>{bodyText}</Text>
       </View>    
-      <LoginPage style= {styles.content} /> 
+      <SignUpPage style= {styles.content} /> 
     </View>
   );
 }
@@ -51,6 +51,5 @@ page: {
 content: {
 flex: 1,
   alignContent: 'center',
-  
 }
 });
