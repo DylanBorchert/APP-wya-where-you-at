@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {View, Text} from 'react-native';
 import HomePage from './WYA-app/HomePage';
 import LoginPage from './WYA-app/LoginPage';
-import Friendlist from './WYA-app/FriendlistPage';
+// import Friendlist from './WYA-app/FriendlistPage';
 import SignUpPage from './WYA-app/SignUpPage';
 import { StyleSheet } from 'react-native';
 
@@ -18,7 +18,7 @@ export default function App() {
           <Stack.Screen name="Home" component={HomePage} />
           <Stack.Screen name="Login" component={LoginPage} />
           <Stack.Screen name="signup" component={SignUpPage} />
-          <Stack.Screen name="FriendList" component={Friendlist} />
+          {/* <Stack.Screen name="FriendList" component={Friendlist} /> */}
       </Stack.Navigator> 
   </NavigationContainer>
   // </s>
