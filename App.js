@@ -5,6 +5,8 @@ import HomePage from './WYA-app/HomePage';
 import LoginPage from './WYA-app/LoginPage';
 import Friendlist from './WYA-app/FriendlistPage';
 import SignUpPage from './WYA-app/SignUpPage';
+import ClassesPage from './WYA-app/ClassesPage';
+import AddClassesPage from './WYA-app/AddClassesPage';
 import { StyleSheet } from 'react-native';
 
 export default function App() {
@@ -15,10 +17,12 @@ export default function App() {
     //   <Text>Hello </Text>
   <NavigationContainer>
        <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomePage} />
+          <Stack.Screen name="Home" component={ClassesPage} />
           <Stack.Screen name="Login" component={LoginPage} />
           <Stack.Screen name="signup" component={SignUpPage} />
           <Stack.Screen name="FriendList" component={Friendlist} />
+          <Stack.Screen name="Classes" component={ClassesPage} />
+          <Stack.Screen name ="AddClass" component={AddClassesPage}/>
       </Stack.Navigator> 
   </NavigationContainer>
   // </s>
