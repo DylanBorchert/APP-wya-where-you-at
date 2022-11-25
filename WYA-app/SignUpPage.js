@@ -6,7 +6,7 @@ import { TextInput } from 'react-native';
 import { ScrollView } from 'react-native';
 // import {Form, FormItem} from 'react-native-form-component';
 
-const LoginPage = () => {
+const SIgnUpPage = () => {
 
     const [buttonText, setButtonText] = useState("Submit");
 
@@ -50,7 +50,7 @@ const LoginPage = () => {
     )
 }
 
-export default LoginPage;
+export default SignUpPage;
 
 const styles = StyleSheet.create({
 
