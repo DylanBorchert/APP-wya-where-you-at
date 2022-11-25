@@ -9,7 +9,6 @@ import Friendlist from './WYA-app/FriendlistPage';
 
 
 export default function App() {
-
   const Stack = createNativeStackNavigator();
 
   return (
