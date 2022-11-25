@@ -8,6 +8,7 @@ import SignUpPage from './WYA-app/SignUpPage';
 import { StyleSheet } from 'react-native';
 
 export default function App() {
+
   const Stack = createNativeStackNavigator();
 
   return (
@@ -22,6 +23,7 @@ export default function App() {
       </Stack.Navigator> 
   </NavigationContainer>
   // </s>
+
   );
 };
 
