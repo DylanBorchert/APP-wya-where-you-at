@@ -3,18 +3,19 @@ import { Button } from 'react-native';
 import { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native';
+import Header from './Header';
 
-
-
-
-const LoginPage = () => {
+const LoginPage = ({ navigation }) => {
 
     const [buttonText, setButtonText] = useState("Submit");
-
+    
+    const pressHandler = () => {
+      navigation.navigate('FriendList');
+    }
 
     return(
         <View style={styles.containter} id="divStartPage">
-
+            <Header />
             <View style={styles.titleGroup}>
             <Text style={styles.titleText}>Login</Text>
             <Text style={styles.text}>please sign in to continue</Text>
@@ -28,7 +29,7 @@ const LoginPage = () => {
         />
 
         <TouchableOpacity style={styles.buttons}>
-        <Text style={styles.buttonText}>{buttonText}</Text>
+        <Text style={styles.buttonText} onPress={pressHandler}>{buttonText}</Text>
         </TouchableOpacity>
         <View style={styles.textGroup}>
           <Text style={styles.text}> New User? Sign up </Text>
@@ -39,7 +40,6 @@ const LoginPage = () => {
 
     )
 }
-
 export default LoginPage;
 
 const styles = StyleSheet.create({
@@ -107,3 +107,6 @@ titleText: {
         }
   
 });
+
+
+
