@@ -3,9 +3,12 @@ import { Button } from 'react-native';
 import { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native';
-import Header from './Header';
+import Top from './Top';
 
 const LoginPage = ({ navigation }) => {
+
+  const [titleText, setTitleText] = useState("W Y A");
+  const bodyText = "WHERE YOU AT?";
 
     const [buttonText, setButtonText] = useState("Submit");
     
@@ -13,9 +16,21 @@ const LoginPage = ({ navigation }) => {
       navigation.navigate('FriendList');
     }
 
+    const signupHandler = () => {
+      navigation.navigate('signup');
+    }
+
+   
+
     return(
+      <View style={styles.page}>
+      <View style={styles.mainTextGroup}>
+        <Text style={styles.HeaderTitleText}>{titleText}</Text> 
+         <Text style={styles.HeaderBodyText}>{bodyText}</Text>
+       
+        </View>
         <View style={styles.containter} id="divStartPage">
-            <Header />
+            
             <View style={styles.titleGroup}>
             <Text style={styles.titleText}>Login</Text>
             <Text style={styles.text}>please sign in to continue</Text>
@@ -33,17 +48,60 @@ const LoginPage = ({ navigation }) => {
         </TouchableOpacity>
         <View style={styles.textGroup}>
           <Text style={styles.text}> New User? Sign up </Text>
-          <TouchableOpacity><Text style={styles.text2}>here</Text></TouchableOpacity>
+          <TouchableOpacity onPress={signupHandler}><Text style={styles.text2}>here</Text></TouchableOpacity>
         </View>
         </View>
-
+        </View>
 
     )
 }
-export default LoginPage;
+
 
 const styles = StyleSheet.create({
   //change the color the background
+
+
+
+  HeaderTitleText : {
+    fontSize: 100,
+    fontWeight: "bold",
+    color: "#F5F5F5",
+    marginBottom: 20,
+    
+  },
+  HeaderBodyText : {
+    fontSize: 25,
+    fontWeight: "bold",
+    color: "#EBEBEB",
+  },
+  mainTextGroup : {
+    alignItems: 'center',
+    alignContent: 'center',
+    marginBottom: 100,
+  },
+
+page: {
+  flex: 1,
+    backgroundColor: '#6d91d9',
+    justifyContent: 'center',
+    alignItems: 'center',
+},
+content: {
+flex: 1,
+  alignContent: 'center',
+  
+},
+
+
+
+
+
+
+
+
+
+
+
 
 containter: {
 
@@ -109,4 +167,4 @@ titleText: {
 });
 
 
-
+export default LoginPage;
