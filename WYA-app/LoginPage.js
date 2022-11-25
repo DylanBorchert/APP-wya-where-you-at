@@ -20,8 +20,20 @@ const LoginPage = ({ navigation }) => {
       navigation.navigate('signup');
     }
 
-   
 
+    fetch('http://35.226.48.108:8080/api/users ', {
+  method: 'GET',
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    "email": "mfudg395@mtroyal.ca"
+  })
+});
+   
+let email = "";
+let password = "";
     return(
       <View style={styles.page}>
       <View style={styles.mainTextGroup}>
@@ -37,7 +49,8 @@ const LoginPage = ({ navigation }) => {
             </View>
 
             <TextInput style={styles.inputField}
-          placeholder="Email" />
+          placeholder="Email" 
+          onChangedText={(password = this)}/>
         <TextInput style={styles.inputField}
           secureTextEntry={true}
           placeholder="Password"
