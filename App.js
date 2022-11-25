@@ -5,13 +5,11 @@ import HomePage from './WYA-app/HomePage';
 import LoginPage from './WYA-app/LoginPage';
 import Friendlist from './WYA-app/FriendlistPage';
 
-
-
-
 export default function App() {
   const Stack = createNativeStackNavigator();
 
   return (
+
   <NavigationContainer>
        <Stack.Navigator>
           <Stack.Screen name="Home" component={HomePage} />
@@ -21,3 +19,4 @@ export default function App() {
   </NavigationContainer>
   );
 };
+
