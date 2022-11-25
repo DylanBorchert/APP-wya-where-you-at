@@ -8,14 +8,14 @@ import StartPage from './WYA-app/StartPage';
 import LoginPage from './WYA-app/LoginPage';
 
 export default function App() {
-  const [titleText, setTitleText] = useState("W Y A");
-  const bodyText = "WHERE YOU AT?";
+  
+
   return (
   
     <View style={styles.page}>
       <View style={styles.mainTextGroup}>
-        <Text style={styles.titleText}>{titleText}</Text>
-        <Text style={styles.bodyText}>{bodyText}</Text>
+        <Text style={styles.titleText}>W Y A</Text>
+        <Text style={styles.bodyText}>WHERE YOU AT?</Text>
       </View>    
       <LoginPage style= {styles.content} /> 
     </View>
