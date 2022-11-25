@@ -1,56 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { styleSheet } from 'react-native';
-import { useState } from 'react';
-
-
-import StartPage from './WYA-app/StartPage';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as React from 'react';
+import HomePage from './WYA-app/HomePage';
 import LoginPage from './WYA-app/LoginPage';
+import Friendlist from './WYA-app/FriendlistPage';
+
+
+
 
 export default function App() {
-  const [titleText, setTitleText] = useState("W Y A");
-  const bodyText = "WHERE YOU AT?";
+
+  const Stack = createNativeStackNavigator();
+
   return (
-  
-    <View style={styles.page}>
-      <View style={styles.mainTextGroup}>
-        <Text style={styles.titleText}>{titleText}</Text>
-        <Text style={styles.bodyText}>{bodyText}</Text>
-      </View>    
-      <LoginPage style= {styles.content} /> 
-    </View>
+  <NavigationContainer>
+       <Stack.Navigator>
+          <Stack.Screen name="Home" component={HomePage} />
+          <Stack.Screen name="Login" component={LoginPage} />
+          <Stack.Screen name="FriendList" component={Friendlist} />
+      </Stack.Navigator> 
+  </NavigationContainer>
   );
-}
-const baseColour = "#6d91d9";
-const styles = StyleSheet.create({
-
-  titleText : {
-    fontSize: 100,
-    fontWeight: "bold",
-    color: "#F5F5F5",
-    marginBottom: 20,
-    
-  },
-  bodyText : {
-    fontSize: 25,
-    fontWeight: "bold",
-    color: "#EBEBEB",
-  },
-  mainTextGroup : {
-    alignItems: 'center',
-    alignContent: 'center',
-    marginBottom: 100,
-  },
-
-page: {
-  flex: 1,
-    backgroundColor: '#6d91d9',
-    justifyContent: 'center',
-    alignItems: 'center',
-},
-content: {
-flex: 1,
-  alignContent: 'center',
-  
-}
-});
+};
