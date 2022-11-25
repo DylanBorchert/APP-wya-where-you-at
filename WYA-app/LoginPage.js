@@ -13,7 +13,7 @@ const LoginPage = ({ navigation }) => {
     const [buttonText, setButtonText] = useState("Submit");
     
     const pressHandler = () => {
-      // navigation.navigate('FriendList');
+      navigation.navigate('FriendList');
     }
 
     const signupHandler = () => {

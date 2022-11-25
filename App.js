@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomePage from './WYA-app/HomePage';
 import LoginPage from './WYA-app/LoginPage';
-// import Friendlist from './WYA-app/FriendlistPage';
+import Friendlist from './WYA-app/FriendlistPage';
 import SignUpPage from './WYA-app/SignUpPage';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Platform } from 'react-native';
@@ -57,7 +57,7 @@ export default function App() {
         <Stack.Screen name="Home" component={HomePage} />
         <Stack.Screen name="Login" component={LoginPage} />
         <Stack.Screen name="signup" component={SignUpPage} />
-        {/* <Stack.Screen name="FriendList" component={Friendlist} /> */}
+        <Stack.Screen name="FriendList" component={Friendlist} />
       </Stack.Navigator>
     </NavigationContainer>
     // </s>
@@ -133,6 +133,25 @@ const styles = StyleSheet.create({
   }
 }
 )
+async function sendPushNotification(expoPushToken) {
+  const message = {
+    to: expoPushToken,
+    sound: 'default',
+    title: 'Boop',
+    body: 'Hehe Boop',
+    data: { someData: 'Dummy Data' },
+  };
+
+  await fetch('http://localhost/boop/ExponentPushToken[cCxGVTMrNm3e7TB8qa3OBa]', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Accept-encoding': 'gzip, deflate',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(message),
+  });
+}
 
 async function registerForPushNotificationsAsync() {
   let token;
