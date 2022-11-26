@@ -16,12 +16,8 @@ export default function App() {
        <Stack.Navigator>
           <Stack.Screen name="Welcome" component={HomePage} />
           <Stack.Screen name="Login" component={LoginPage} />
-<<<<<<< Updated upstream
-          <Stack.Screen name="FriendList" component={Friendlist} />
-=======
           <Stack.Screen name="Sign Up" component={SignUpPage} />
           <Stack.Screen name="Friend List" component={Friendlist} />
->>>>>>> Stashed changes
       </Stack.Navigator> 
   </NavigationContainer>
   );

@@ -1,12 +1,7 @@
-<<<<<<< Updated upstream
-import { View, Button } from "react-native";
-import Header from "./Header";
-=======
 import { View, Button, StyleSheet, Text} from "react-native";
 import Top from "./Top";
 import { useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
->>>>>>> Stashed changes
 
 const HomePage = ({ navigation }) => {
     
@@ -19,12 +14,6 @@ const HomePage = ({ navigation }) => {
   const bodyText = "WHERE YOU AT?";
   const [buttonText, setButtonText] = useState("Start");
     return (
-<<<<<<< Updated upstream
-    
-      <View>
-        <Header />
-        <Button title='Start' onPress={pressHandler}></Button>
-=======
           
       <View style={styles.page}>
         
@@ -38,7 +27,6 @@ const HomePage = ({ navigation }) => {
         {/* <Top styles= {{width:400, height:400}}  /> */}
         {/* <Button title='Start' onPress={pressHandler}></Button> */}
        
->>>>>>> Stashed changes
       </View>
     )
 
