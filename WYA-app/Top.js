@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Button} from 'react-native';
 import { useState } from 'react';
 
 const Top = ({ navigation }) => {
-
 ///this page is very useless atm might delete later if we don't find use for it
     const [titleText, setTitleText] = useState("W Y A");
     const bodyText = "WHERE YOU AT?";
@@ -13,7 +12,6 @@ const Top = ({ navigation }) => {
     <View style={styles.mainTextGroup}>
       <Text style={styles.titleText}>{titleText}</Text>
       <Text style={styles.bodyText}>{bodyText}</Text>
-
     </View>
   </View>
    )

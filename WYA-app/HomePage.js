@@ -1,8 +1,7 @@
-import Top from "./Top";
 import { View, Button, StyleSheet, Text} from "react-native";
+import Header from "./Top";
 import { useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
-
 
 const HomePage = ({ navigation }) => {
     
@@ -14,8 +13,6 @@ const HomePage = ({ navigation }) => {
   const [titleText, setTitleText] = useState("W Y A");
   const bodyText = "WHERE YOU AT?";
   const [buttonText, setButtonText] = useState("Start");
-          
-
     return (          
       <View style={styles.page}>
         
@@ -26,6 +23,8 @@ const HomePage = ({ navigation }) => {
         <TouchableOpacity style={styles.buttons} onPress={pressHandler}>
         <Text style={styles.buttonText} >{buttonText}</Text>
         </TouchableOpacity>
+        {/* <Header styles= {{width:400, height:400}}  /> */}
+        {/* <Button title='Start' onPress={pressHandler}></Button> */}
       </View>
     )
 
