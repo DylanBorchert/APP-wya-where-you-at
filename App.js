@@ -5,7 +5,7 @@ import HomePage from './WYA-app/HomePage';
 import SignUpPage from './WYA-app/SignUpPage';
 import LoginPage from './WYA-app/LoginPage';
 import Friendlist from './WYA-app/FriendlistPage';
-import SignUpPage from './WYA-app/SignUpPage';
+
 
 
 

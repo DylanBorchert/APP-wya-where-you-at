@@ -50,6 +50,6 @@ flex: 1,
   alignContent: 'center',
   
 }
-});}
+});
 
 export default Top;

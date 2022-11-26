@@ -1,5 +1,5 @@
 import { View, Button, StyleSheet, Text} from "react-native";
-import Header from "./Header";
+import Header from "./Top";
 import { useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
