@@ -20,10 +20,6 @@ const LoginPage = ({ navigation }) => {
     const signupHandler = () => {
       navigation.navigate('Sign Up');
     }
-
-   
-
-
     return(
         <View style={styles.page}>
       <View style={styles.mainTextGroup}>
@@ -56,9 +52,6 @@ const LoginPage = ({ navigation }) => {
 
     )
 }
-
-
-
 
 
 
