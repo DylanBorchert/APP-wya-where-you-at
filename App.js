@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import HomePage from './WYA-app/HomePage';
+import SignUpPage from './WYA-app/SignUpPage';
 import LoginPage from './WYA-app/LoginPage';
 import Friendlist from './WYA-app/FriendlistPage';
 import SignUpPage from './WYA-app/SignUpPage';
