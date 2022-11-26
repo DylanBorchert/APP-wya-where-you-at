@@ -7,11 +7,11 @@ import Top from './Top';
 
 
 
+
 const LoginPage = ({ navigation }) => {
 
     const [buttonText, setButtonText] = useState("Submit");
-    const [titleText, setTitleText] = useState("W Y A");
-    const bodyText = "WHERE YOU AT?";
+    
     const pressHandler = () => {
       navigation.navigate('Friend List');
     }
@@ -21,11 +21,6 @@ const LoginPage = ({ navigation }) => {
       navigation.navigate('Sign Up');
     }
     return(
-        <View style={styles.page}>
-      <View style={styles.mainTextGroup}>
-        <Text style={styles.HeaderTitleText}>{titleText}</Text> 
-         <Text style={styles.HeaderBodyText}>{bodyText}</Text>
-         </View>
         <View style={styles.containter} id="divStartPage">
             
             <View style={styles.titleGroup}>
@@ -39,7 +34,6 @@ const LoginPage = ({ navigation }) => {
           secureTextEntry={true}
           placeholder="Password"
         />
-
         <TouchableOpacity style={styles.buttons} onPress={pressHandler}>
         <Text style={styles.buttonText}>{buttonText}</Text>
         </TouchableOpacity>
@@ -48,7 +42,7 @@ const LoginPage = ({ navigation }) => {
           <TouchableOpacity><Text style={styles.text2} onPress={signupHandler}>here</Text></TouchableOpacity>
         </View>
         </View>
-      </View>
+
 
     )
 }
