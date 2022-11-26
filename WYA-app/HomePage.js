@@ -14,6 +14,7 @@ const HomePage = ({ navigation }) => {
   const [titleText, setTitleText] = useState("W Y A");
   const bodyText = "WHERE YOU AT?";
   const [buttonText, setButtonText] = useState("Start");
+          
 
     return (          
       <View style={styles.page}>
