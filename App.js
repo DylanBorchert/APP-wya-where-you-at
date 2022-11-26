@@ -14,6 +14,7 @@ export default function App() {
        <Stack.Navigator>
           <Stack.Screen name="Welcome" component={HomePage} />
           <Stack.Screen name="Login" component={LoginPage} />
+          <Stack.Screen name="FriendList" component={Friendlist} />
           <Stack.Screen name="Sign Up" component={SignUpPage} />
           <Stack.Screen name="Friend List" component={Friendlist} />
       </Stack.Navigator> 
