@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native';
 import { ScrollView } from 'react-native';
-import Top from './Top';
 // import {Form, FormItem} from 'react-native-form-component';
 
 const SignUpPage = () => {
@@ -22,7 +21,6 @@ const SignUpPage = () => {
        
         </View>
         <View style={styles.containter} id="divStartPage">
-          {/* <Top /> */}
            <View style={{height: 500}} >
           <ScrollView style={styles.ScrollContainer}>
 

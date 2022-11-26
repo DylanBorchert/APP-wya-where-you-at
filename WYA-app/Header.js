@@ -4,9 +4,6 @@ import { useState } from 'react';
 
 const Header = ({ navigation }) => {
 ///this page is very useless atm might delete later if we don't find use for it
-
-
-const Top = () => {
     const [titleText, setTitleText] = useState("W Y A");
     const bodyText = "WHERE YOU AT?";
 
