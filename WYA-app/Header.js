@@ -2,8 +2,13 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button} from 'react-native';
 import { useState } from 'react';
 
+<<<<<<< Updated upstream:WYA-app/Header.js
 const Header = ({ navigation }) => {
+=======
+///this page is very useless atm might delete later if we don't find use for it
+>>>>>>> Stashed changes:WYA-app/Top.js
 
+const Top = () => {
     const [titleText, setTitleText] = useState("W Y A");
     const bodyText = "WHERE YOU AT?";
 
@@ -12,7 +17,10 @@ const Header = ({ navigation }) => {
     <View style={styles.mainTextGroup}>
       <Text style={styles.titleText}>{titleText}</Text>
       <Text style={styles.bodyText}>{bodyText}</Text>
+<<<<<<< Updated upstream:WYA-app/Header.js
       
+=======
+>>>>>>> Stashed changes:WYA-app/Top.js
     </View>
   </View>
    )
