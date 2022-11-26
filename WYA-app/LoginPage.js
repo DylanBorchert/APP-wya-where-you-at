@@ -7,7 +7,9 @@ import Top from './Top';
 
 const LoginPage = ({ navigation }) => {
 
+
   const [titleText, setTitleText] = useState("W Y A");
+  const [email, setEmail] = useState("");
   const bodyText = "WHERE YOU AT?";
 
     const [buttonText, setButtonText] = useState("Submit");
@@ -19,20 +21,47 @@ const LoginPage = ({ navigation }) => {
     const signupHandler = () => {
       navigation.navigate('signup');
     }
+    const getArticlesFromApi = async (inputField) => {
+
+      let Student ={
+        "email": "",
+        "firstName": "",
+        "lastName": "",
+        "phoneNumber": "",
+        "username": "",
+      }
+      try {    
+        console.log(inputField);
+        //this is the test email that works:  mfudg395@mtroyal.ca
+        let response = await fetch('http://35.226.48.108:8080/api/users/' + inputField , {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+
+        })
+        let json = await response.json();
+        console.log(JSON.stringify(json));
+        if(json[0]){
+        Student.email = json[0].email;
+        Student.firstName = json[0].firstName;
+        Student.lastName = json[0].lastName;
+        Student.phoneNumber = json[0].phoneNumber;
+
+        }
+        else{console.log("User not found")}
+      } 
+      catch (error) {
+         console.error(error);
+      }
+      return Student;
+    }
+
+  
 
 
-    fetch('http://35.226.48.108:8080/api/users ', {
-  method: 'GET',
-  headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    "email": "mfudg395@mtroyal.ca"
-  })
-});
    
-let email = "";
+
 let password = "";
     return(
       <View style={styles.page}>
@@ -48,16 +77,16 @@ let password = "";
             <Text style={styles.text}>please sign in to continue</Text>
             </View>
 
-            <TextInput style={styles.inputField}
+            <TextInput id={"emailField"}style={styles.inputField}
           placeholder="Email" 
-          onChangedText={(password = this)}/>
+          onChangeText={(text) => setEmail({text})} />
         <TextInput style={styles.inputField}
           secureTextEntry={true}
           placeholder="Password"
         />
 
         <TouchableOpacity style={styles.buttons}>
-        <Text style={styles.buttonText} onPress={pressHandler}>{buttonText}</Text>
+        <Text style={styles.buttonText} onPress={() =>getArticlesFromApi(email.text)}>{buttonText}</Text>
         </TouchableOpacity>
         <View style={styles.textGroup}>
           <Text style={styles.text}> New User? Sign up </Text>
@@ -67,7 +96,7 @@ let password = "";
         </View>
 
     )
-}
+    }
 
 
 const styles = StyleSheet.create({
@@ -88,6 +117,7 @@ const styles = StyleSheet.create({
     color: "#EBEBEB",
   },
   mainTextGroup : {
+    
     alignItems: 'center',
     alignContent: 'center',
     marginBottom: 100,
