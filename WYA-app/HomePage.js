@@ -13,8 +13,12 @@ const HomePage = ({ navigation }) => {
   const [titleText, setTitleText] = useState("W Y A");
   const bodyText = "WHERE YOU AT?";
   const [buttonText, setButtonText] = useState("Start");
+<<<<<<< HEAD
     return (
           
+=======
+    return (          
+>>>>>>> 8e8329a0879536232d877f8d1797700a6f6a3167
       <View style={styles.page}>
         
         <View style={styles.mainTextGroup}>
@@ -26,7 +30,11 @@ const HomePage = ({ navigation }) => {
         </TouchableOpacity>
         {/* <Top styles= {{width:400, height:400}}  /> */}
         {/* <Button title='Start' onPress={pressHandler}></Button> */}
+<<<<<<< HEAD
        
+=======
+
+>>>>>>> 8e8329a0879536232d877f8d1797700a6f6a3167
       </View>
     )
 

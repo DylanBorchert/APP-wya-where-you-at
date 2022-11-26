@@ -18,6 +18,10 @@ export default function App() {
           <Stack.Screen name="Login" component={LoginPage} />
           <Stack.Screen name="Sign Up" component={SignUpPage} />
           <Stack.Screen name="Friend List" component={Friendlist} />
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8e8329a0879536232d877f8d1797700a6f6a3167
       </Stack.Navigator> 
   </NavigationContainer>
   );

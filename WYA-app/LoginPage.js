@@ -16,11 +16,11 @@ const LoginPage = ({ navigation }) => {
       navigation.navigate('Friend List');
     }
 
+
+
     const signupHandler = () => {
       navigation.navigate('Sign Up');
     }
-
-   
 
     return(
         <View style={styles.containter} id="divStartPage">
@@ -55,7 +55,8 @@ const LoginPage = ({ navigation }) => {
 //   }).isRequired,
 // };
 
-export default LoginPage;
+
+
 
 const styles = StyleSheet.create({
   //change the color the background
@@ -211,3 +212,7 @@ titleText: {
               }
   
 });
+
+
+export default LoginPage;
+
