@@ -4,6 +4,7 @@ import * as React from 'react';
 import HomePage from './WYA-app/HomePage';
 import LoginPage from './WYA-app/LoginPage';
 import Friendlist from './WYA-app/FriendlistPage';
+import SignUpPage from './WYA-app/SignUpPage';
 
 
 
@@ -18,10 +19,6 @@ export default function App() {
           <Stack.Screen name="Login" component={LoginPage} />
           <Stack.Screen name="Sign Up" component={SignUpPage} />
           <Stack.Screen name="Friend List" component={Friendlist} />
-<<<<<<< HEAD
-=======
-
->>>>>>> 8e8329a0879536232d877f8d1797700a6f6a3167
       </Stack.Navigator> 
   </NavigationContainer>
   );

@@ -3,7 +3,7 @@ import { Button } from 'react-native';
 import { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native';
-import Header from './Header';
+import Header from './Top';
 
 
 
@@ -11,7 +11,8 @@ import Header from './Header';
 const LoginPage = ({ navigation }) => {
 
     const [buttonText, setButtonText] = useState("Submit");
-    
+    const [titleText, setTitleText] = useState("W Y A");
+    const bodyText = "WHERE YOU AT?";
     const pressHandler = () => {
       navigation.navigate('Friend List');
     }
@@ -23,6 +24,12 @@ const LoginPage = ({ navigation }) => {
     }
 
     return(
+      <View style={styles.page}>
+      <View style={styles.mainTextGroup}>
+        <Text style={styles.HeaderTitleText}>{titleText}</Text> 
+         <Text style={styles.HeaderBodyText}>{bodyText}</Text>
+       
+        </View>
         <View style={styles.containter} id="divStartPage">
             <Header />
             <View style={styles.titleGroup}>
@@ -36,26 +43,18 @@ const LoginPage = ({ navigation }) => {
           secureTextEntry={true}
           placeholder="Password"
         />
-        <TouchableOpacity style={styles.buttons}>
-        <Text style={styles.buttonText} onPress={pressHandler}>{buttonText}</Text>
+        <TouchableOpacity style={styles.buttons} onPress={pressHandler}>
+        <Text style={styles.buttonText}>{buttonText}</Text>
         </TouchableOpacity>
         <View style={styles.textGroup}>
           <Text style={styles.text}> New User? Sign up </Text>
-          <TouchableOpacity><Text style={styles.text2}>here</Text></TouchableOpacity>
+          <TouchableOpacity><Text style={styles.text2} onPress={signupHandler}>here</Text></TouchableOpacity>
         </View>
         </View>
-
+</View>
 
     )
 }
-
-// LoginPage.propTypes = {
-//   navigation: PropTypes.shape({
-//     navigate: PropTypes.func.isRequired,
-//   }).isRequired,
-// };
-
-
 
 
 const styles = StyleSheet.create({

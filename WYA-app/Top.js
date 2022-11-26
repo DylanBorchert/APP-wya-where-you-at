@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button} from 'react-native';
 import { useState } from 'react';
 
-const Header = ({ navigation }) => {
+const Top = ({ navigation }) => {
 ///this page is very useless atm might delete later if we don't find use for it
 
 
@@ -53,6 +53,6 @@ flex: 1,
   alignContent: 'center',
   
 }
-});
+});}
 
-export default Header;
+export default Top;
