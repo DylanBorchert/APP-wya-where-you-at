@@ -2,8 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button} from 'react-native';
 import { useState } from 'react';
 
-const Header = ({ navigation }) => {
+///this page is very useless atm might delete later if we don't find use for it
 
+const Top = () => {
     const [titleText, setTitleText] = useState("W Y A");
     const bodyText = "WHERE YOU AT?";
 
@@ -12,7 +13,6 @@ const Header = ({ navigation }) => {
     <View style={styles.mainTextGroup}>
       <Text style={styles.titleText}>{titleText}</Text>
       <Text style={styles.bodyText}>{bodyText}</Text>
-      
     </View>
   </View>
    )
@@ -53,4 +53,4 @@ flex: 1,
 }
 });
 
-export default Header;
+export default Top;

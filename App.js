@@ -4,7 +4,7 @@ import * as React from 'react';
 import HomePage from './WYA-app/HomePage';
 import LoginPage from './WYA-app/LoginPage';
 import Friendlist from './WYA-app/FriendlistPage';
-
+import SignUpPage from './WYA-app/SignUpPage';
 export default function App() {
   const Stack = createNativeStackNavigator();
 
@@ -12,9 +12,10 @@ export default function App() {
 
   <NavigationContainer>
        <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomePage} />
+          <Stack.Screen name="Welcome" component={HomePage} />
           <Stack.Screen name="Login" component={LoginPage} />
-          <Stack.Screen name="FriendList" component={Friendlist} />
+          <Stack.Screen name="Sign Up" component={SignUpPage} />
+          <Stack.Screen name="Friend List" component={Friendlist} />
       </Stack.Navigator> 
   </NavigationContainer>
   );

@@ -3,19 +3,30 @@ import { Button } from 'react-native';
 import { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native';
-import Header from './Header';
+import Top from './Top';
 
 const LoginPage = ({ navigation }) => {
 
     const [buttonText, setButtonText] = useState("Submit");
-    
+    const [titleText, setTitleText] = useState("W Y A");
+    const bodyText = "WHERE YOU AT?";
     const pressHandler = () => {
-      navigation.navigate('FriendList');
+      navigation.navigate('Friend List');
     }
 
+    const signupHandler = () => {
+      navigation.navigate('Sign Up');
+    }
+
+  
     return(
+        <View style={styles.page}>
+      <View style={styles.mainTextGroup}>
+        <Text style={styles.HeaderTitleText}>{titleText}</Text> 
+         <Text style={styles.HeaderBodyText}>{bodyText}</Text>
+         </View>
         <View style={styles.containter} id="divStartPage">
-            <Header />
+            
             <View style={styles.titleGroup}>
             <Text style={styles.titleText}>Login</Text>
             <Text style={styles.text}>please sign in to continue</Text>
@@ -28,25 +39,63 @@ const LoginPage = ({ navigation }) => {
           placeholder="Password"
         />
 
-        <TouchableOpacity style={styles.buttons}>
-        <Text style={styles.buttonText} onPress={pressHandler}>{buttonText}</Text>
+        <TouchableOpacity style={styles.buttons} onPress={pressHandler}>
+        <Text style={styles.buttonText}>{buttonText}</Text>
         </TouchableOpacity>
         <View style={styles.textGroup}>
           <Text style={styles.text}> New User? Sign up </Text>
-          <TouchableOpacity><Text style={styles.text2}>here</Text></TouchableOpacity>
+          <TouchableOpacity><Text style={styles.text2} onPress={signupHandler}>here</Text></TouchableOpacity>
         </View>
         </View>
-
+      </View>
 
     )
 }
+
+// LoginPage.propTypes = {
+//   navigation: PropTypes.shape({
+//     navigate: PropTypes.func.isRequired,
+//   }).isRequired,
+// };
+
+
 export default LoginPage;
 
+
 const styles = StyleSheet.create({
-  //change the color the background
 
+
+  HeaderTitleText : {
+    fontSize: 100,
+    fontWeight: "bold",
+    color: "#F5F5F5",
+    marginBottom: 20,
+    
+  },
+  HeaderBodyText : {
+    fontSize: 25,
+    fontWeight: "bold",
+    color: "#EBEBEB",
+  },
+  mainTextGroup : {
+    alignItems: 'center',
+    alignContent: 'center',
+    marginBottom: 100,
+  },
+
+page: {
+  flex: 1,
+    backgroundColor: '#6d91d9',
+    justifyContent: 'center',
+    alignItems: 'center',
+},
+content: {
+flex: 1,
+  alignContent: 'center',
+  
+},
 containter: {
-
+  flex: 1,
     height: 400,
     width: 370,
     borderRadius: 10,
@@ -107,6 +156,3 @@ titleText: {
         }
   
 });
-
-
-
