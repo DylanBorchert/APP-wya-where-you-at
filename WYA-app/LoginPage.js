@@ -80,15 +80,12 @@ const LoginPage = ({ navigation }) => {
       navigation.navigate('Friend List');
     }
 
-<<<<<<< Updated upstream
-=======
+
+
     const signupHandler = () => {
       navigation.navigate('Sign Up');
     }
 
-   
-
->>>>>>> Stashed changes
     return(
         <View style={styles.containter} id="divStartPage">
             <Header />
@@ -123,9 +120,7 @@ const LoginPage = ({ navigation }) => {
 // };
 
 
-<<<<<<< Updated upstream
-export default LoginPage;
-=======
+
 
   HeaderTitleText : {
     fontSize: 100,
@@ -221,4 +216,4 @@ titleText: {
 
 
 export default LoginPage;
->>>>>>> Stashed changes
+
