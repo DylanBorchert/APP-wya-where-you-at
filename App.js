@@ -4,6 +4,7 @@ import HomePage from './WYA-app/HomePage';
 import LoginPage from './WYA-app/LoginPage';
 import Friendlist from './WYA-app/FriendlistPage';
 import SignUpPage from './WYA-app/SignUpPage';
+
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Platform } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
@@ -20,7 +21,6 @@ Notifications.setNotificationHandler({
     shouldSetBadge: false,
   }),
 });
-
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -52,15 +52,17 @@ export default function App() {
   return (
     // <View styles={styles.containter}>
     //   <Text>Hello </Text>
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomePage} />
-        <Stack.Screen name="Login" component={LoginPage} />
-        <Stack.Screen name="signup" component={SignUpPage} />
-        <Stack.Screen name="FriendList" component={Friendlist} />
-      </Stack.Navigator>
-    </NavigationContainer>
-    // </s>
+  <NavigationContainer>
+       <Stack.Navigator>
+          <Stack.Screen name="Home" component={ClassesPage} />
+          <Stack.Screen name="Login" component={LoginPage} />
+          <Stack.Screen name="signup" component={SignUpPage} />
+          <Stack.Screen name="FriendList" component={Friendlist} />
+          <Stack.Screen name="Classes" component={ClassesPage} />
+          <Stack.Screen name ="AddClass" component={AddClassesPage}/>
+      </Stack.Navigator> 
+  </NavigationContainer>
+  // </s>
   );
 }
 
