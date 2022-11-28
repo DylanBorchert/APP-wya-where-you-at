@@ -10,17 +10,21 @@ const ClassesPage = ({ navigation }) => {
 
     return (
 
-        <View>
+        <View style={styles.container}>
             <View>
                 <Text style={styles.title}>Classes:</Text>
             </View>
-            <View>
-                <Text>Name: COMP 3504 - Programming IV: Software Engineering</Text>
-                <Text>Section: 001</Text>
-                <Text>Type: Lecture</Text>
-                <Text>Days of the Week: T/Th</Text>
-                <Text>Time: 4:00PM - 5:20PM</Text>
-                <Text>Course Code: 45501</Text>
+            <View style={styles.classBlock}>
+                <Text>Course: COMP 3504 </Text>
+                <Text>Name: Programming IV: Software Engineering {"\n"}</Text>
+                <View style={styles.informationText}>
+                    <Text>Section: 001   </Text>
+                    <Text>Type: Lecture   </Text>
+                    <Text>Course Code: 45501 {"\n"}</Text>
+                </View>
+
+                <Text>Times: T/Th   (4:00PM - 5:20PM)</Text>
+                
             </View>
             <View>
                 <TouchableOpacity style={styles.buttons} onPress={addClassHandler}>
@@ -33,27 +37,45 @@ const ClassesPage = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     title: {
-        fontSize: 50,
-        paddingBottom: 40,
-        alignItems: 'center',
+        fontSize: 40,
+        fontWeight: "bold",
+        color: "#F5F5F5",
+        marginBottom: 20,
     },
     buttons: {
         backgroundColor: '#6d91d9',
-        borderRadius: 30,
         height: 50,
         width: 200,
-        marginTop: 10,
+        marginTop: 20,
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 20,
+        borderRadius: 13,
+        backgroundColor: "white",
     },
     buttonText: {
-        fontSize: 20,
-        color: "white",
+        fontSize: 15,
         setButtonText: "white",
         fontWeight: "bold",
-    }
+        backgroundColor: "white",
+        borderRadius: 13,
+    },
+    container: {
+        backgroundColor: '#6d91d9',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    classBlock: {
+        backgroundColor: '#FFCF99',
+        borderRadius: 13,
+        justifyContent: 'space-between',
+        padding: 5,
+        lineHeight: 5
 
+    },
+    informationText: {
+        flexDirection: 'row'
+    }
 });
 
 export default ClassesPage;
