@@ -23,6 +23,7 @@ Notifications.setNotificationHandler({
 });
 
 export default function App() {
+
   const Stack = createNativeStackNavigator();
 
   const [expoPushToken, setExpoPushToken] = useState('');
@@ -52,6 +53,7 @@ export default function App() {
   return (
     // <View styles={styles.containter}>
     //   <Text>Hello </Text>
+
   <NavigationContainer>
        <Stack.Navigator>
           <Stack.Screen name="Home" component={ClassesPage} />
