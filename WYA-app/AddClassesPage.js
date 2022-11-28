@@ -68,7 +68,7 @@ const AddClassesPage = ({ navigation }) => {
         { key: '19:50:00', value: '7:50 PM' },
         { key: '20:20:00', value: '8:20 PM' },
         { key: '20:50:00', value: '8:50 PM' },
-        { key: '20:20:00', value: '8:20 PM' },
+        { key: '21:20:00', value: '9:20 PM' },
         { key: '21:50:00', value: '9:50 PM' }
     ];
 
