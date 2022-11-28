@@ -4,12 +4,12 @@ import HomePage from './WYA-app/HomePage';
 import LoginPage from './WYA-app/LoginPage';
 import Friendlist from './WYA-app/FriendlistPage';
 import SignUpPage from './WYA-app/SignUpPage';
-
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Platform } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
 import StartPage from './WYA-app/StartPage';
-
+import ClassesPage from './WYA-app/ClassesPage';
+import AddClassesPage from './WYA-app/AddClassesPage';
 
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
