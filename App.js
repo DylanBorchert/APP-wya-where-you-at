@@ -1,6 +1,7 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomePage from './WYA-app/HomePage';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Signin from './WYA-app/Signin';
 import SignUpPage from './WYA-app/SignUpPage';
 import { StyleSheet, Text, View, Platform } from 'react-native';
@@ -8,6 +9,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import {Provider as AuthProvider} from './context/AuthContext.js';
 import {Context as AuthContext} from './context/AuthContext';
 
+import HomePage from './WYA-app/HomePage';
 import Friendlist from './WYA-app/FriendlistPage';
 import ClassesPage from './WYA-app/ClassesPage';
 import StartPage from './WYA-app/StartPage';
@@ -24,8 +26,8 @@ Notifications.setNotificationHandler({
   }),
 });
 
-const AuthStack = createNativeStackNavigator();
-function authFlow() {
+const AuthStack = createStackNavigator();
+function AuthFlow() {
   return (
     <AuthStack.Navigator>
       <AuthStack.Screen
@@ -42,8 +44,46 @@ function authFlow() {
   );
 }
 
+const Tab = createBottomTabNavigator();
+function HomeFlow() {
+  return (
+    <Tab.Navigator initialRouteName="Profile">
+      <Tab.Screen 
+        name="Friends" 
+        component={Friendlist} 
+        options={{
+          tabBarLabel: 'Friends',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="account-multiple" color={color} size={26} />
+          ),
+        }}
+      />   
+      <Tab.Screen 
+        name="Profile" 
+        component={StartPage} 
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="home" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen 
+        name="Classes" 
+        component={ClassesPage} 
+        options={{
+          tabBarLabel: 'Classes',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="google-classroom" color={color} size={26} />
+          ),
+        }}
+      />   
+    </Tab.Navigator>
+  );
+}
 
-const Stack = createNativeStackNavigator();
+
+const Stack = createStackNavigator();
 function App() {
 
   const {state} = React.useContext(AuthContext);
@@ -79,15 +119,19 @@ function App() {
         {state.token === null ? (
           <>
             <Stack.Screen
-              name="Auth"
-              component={authFlow}
+              name="Login"
+              component={AuthFlow}
             />
           </>
         ) : (
-          <Stack.Screen
-            name="Home"
-            component={HomePage}
-          />
+          <>
+            <Stack.Screen
+              options={{headerShown: false}}
+              name="Home"
+              component={HomeFlow}
+              />
+            <Stack.Screen name="AddClass" component={AddClassesPage} />
+          </>
         )}
       </Stack.Navigator>
     </NavigationContainer>

@@ -35,7 +35,6 @@ const Signin = ({ navigation }) => {
 
       if (data[0].status === "success") {
         //navigate to the friendlist page if login successful
-        navigation.navigate("FriendList");
       } else {
         alert("Incorrect email or password");
       }
