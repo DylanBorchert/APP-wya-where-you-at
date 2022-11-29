@@ -14,7 +14,7 @@ const Signin = ({ navigation }) => {
   const [buttonText, setButtonText] = useState("Submit");
 
   const signupHandler = () => {
-    navigation.navigate("signup");
+    navigation.navigate("Signup");
   };
 
   const loginUser = async () => {
