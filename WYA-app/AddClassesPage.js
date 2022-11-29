@@ -4,9 +4,46 @@ import { useState } from 'react';
 
 const AddClassesPage = ({navigation}) => {
 
-    const [selected, setSelected] = useState("");
+    const [className, setClassName] = useState("");
+    const [classSubject, setClassSubject] = useState("");
+    const [classCode, setClassCode] = useState("");
+    const [classSection, setClassSection] = useState("");
+    const [classStartTimeState, setClassStartTime] = useState("");
+    const [classEndTimeState, setClassEndTime] = useState("");
+    const [classDaysOfWeek, setClassDaysOfWeek] = useState ("");
+    const [classSemester, setClassSemester] = useState("");
+    const [classType, setClassType] = useState("");
+    const ClassesPageHandler = async () => {
+        await fetch("http://10.239.21.58:8080/api/courses", {
+            method: "POST",
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: className,
+                course_subject: classSubject,
+                course_code: classCode,
+                course_section: classSection,
+                start_time: classStartTimeState,
+                end_time: classEndTimeState,
+                days_of_week: classDaysOfWeek,
+                semester: classSemester
+            })
+        });
 
-    const ClassesPageHandler = () => {
+        await fetch("http://10.239.21.58:8080/api/schedules", {
+            method: "POST",
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: "mfudg395@mtroyal.ca",
+                course_id: courseID
+            })
+        });
+        // const data = await response.json();
         navigation.navigate('Classes');
     };
 
@@ -70,19 +107,23 @@ const AddClassesPage = ({navigation}) => {
         {key: '20:50:00', value: '8:50 PM'}
     ];
 
+    
+
     return (
         <View>
             <View>
-                <TextInput style={styles.inputField} placeholder="Name"/>
-                <TextInput style={styles.inputField} placeholder="Section"/>
-                <SelectList style={styles.inputField} setSelected={(val) => setSelected(val)} data={classTypes} save="value" placeholder='Type of Class'/>
-                <TextInput style={styles.inputField} placeholder="Days of the Week"/>
-                <SelectList style={styles.inputField} setSelected={(val) => setSelected(val)} data={startTime} save="value" placeholder='Start Time'/>
-                <SelectList style={styles.inputField} setSelected={(val) => setSelected(val)} data={endTime} save="value" placeholder='End Time'/>
-                <TextInput style={styles.inputField} placeholder="Course Code"/>
+                <TextInput style={styles.inputField} onChangeText={newText => setClassName(newText)} placeholder="Name"/>
+                <TextInput style={styles.inputField} onChangeText={newText => setClassSubject(newText)} placeholder="Subject"/>
+                <TextInput style={styles.inputField} onChangeText={newText => setClassSection(newText)} placeholder="Section"/>
+                <SelectList style={styles.inputField} save="key" setSelected={} data={classTypes} placeholder='Type of Class'/>
+                <TextInput style={styles.inputField} setSelected={(val) => setSelected(val)} data={startTime} onChangeText={newText => setClassDaysOfWeek(newText)} placeholder="Days of the Week"/>
+                <SelectList style={styles.inputField} setSelected={(val) => setSelected(val)}  data={endTime} save="key" placeholder='Start Time'/>
+                <SelectList style={styles.inputField}  save="key" placeholder='End Time'/>
+                <TextInput style={styles.inputField} onChangeText={newText => setClassCode(newText)} placeholder="Course Code"/>
+                <TextInput style={styles.inputField} onChangeText={newText => setClassSemester(newText)} placeholder="Semester (ex: F2022)"/>
             </View>
             <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.buttons} onPress={ClassesPageHandler}>
+                <TouchableOpacity style={styles.buttons}>
                     <Text style={styles.buttonText}>Cancel</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.buttons} onPress={ClassesPageHandler}>
