@@ -1,14 +1,18 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomePage from './WYA-app/HomePage';
-import LoginPage from './WYA-app/LoginPage';
-import Friendlist from './WYA-app/FriendlistPage';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Signin from './WYA-app/Signin';
 import SignUpPage from './WYA-app/SignUpPage';
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Platform } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
-import StartPage from './WYA-app/StartPage';
+import {Provider as AuthProvider} from './context/AuthContext.js';
+import {Context as AuthContext} from './context/AuthContext';
+
+import HomePage from './WYA-app/HomePage';
+import Friendlist from './WYA-app/FriendlistPage';
 import ClassesPage from './WYA-app/ClassesPage';
+import StartPage from './WYA-app/StartPage';
 import AddClassesPage from './WYA-app/AddClassesPage';
 
 import * as Device from 'expo-device';
@@ -22,10 +26,69 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export default function App() {
+const AuthStack = createStackNavigator();
+function AuthFlow() {
+  return (
+    <AuthStack.Navigator>
+      <AuthStack.Screen
+        options={{headerShown: false}}
+        name="Signin"
+        component={Signin}
+      />
+      <AuthStack.Screen
+        options={{headerShown: false}}
+        name="Signup"
+        component={SignUpPage}
+      />
+    </AuthStack.Navigator>
+  );
+}
 
-  const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+function HomeFlow() {
+  return (
+    <Tab.Navigator initialRouteName="Profile">
+      <Tab.Screen 
+        name="Friends" 
+        component={Friendlist} 
+        options={{
+          tabBarLabel: 'Friends',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="account-multiple" color={color} size={26} />
+          ),
+        }}
+      />   
+      <Tab.Screen 
+        name="Profile" 
+        component={StartPage} 
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="home" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen 
+        name="Classes" 
+        component={ClassesPage} 
+        options={{
+          tabBarLabel: 'Classes',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="google-classroom" color={color} size={26} />
+          ),
+        }}
+      />   
+    </Tab.Navigator>
+  );
+}
 
+
+const Stack = createStackNavigator();
+function App() {
+
+  const {state} = React.useContext(AuthContext);
+  console.log(state); 
+  
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
@@ -51,22 +114,38 @@ export default function App() {
   }, []);
 
   return (
-    // <View styles={styles.containter}>
-    //   <Text>Hello </Text>
-
-  <NavigationContainer>
-       <Stack.Navigator>
-          <Stack.Screen name="Home" component={ClassesPage} />
-          <Stack.Screen name="Login" component={LoginPage} />
-          <Stack.Screen name="signup" component={SignUpPage} />
-          <Stack.Screen name="FriendList" component={Friendlist} />
-          <Stack.Screen name="Classes" component={ClassesPage} />
-          <Stack.Screen name ="AddClass" component={AddClassesPage}/>
-      </Stack.Navigator> 
-  </NavigationContainer>
-  // </s>
+    <NavigationContainer>
+      <Stack.Navigator>
+        {state.token === null ? (
+          <>
+            <Stack.Screen
+              name="Login"
+              component={AuthFlow}
+            />
+          </>
+        ) : (
+          <>
+            <Stack.Screen
+              options={{headerShown: false}}
+              name="Home"
+              component={HomeFlow}
+              />
+            <Stack.Screen name="AddClass" component={AddClassesPage} />
+          </>
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
+
+export default () => {
+  return (
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  );
+};
+
 
 
 const styles = StyleSheet.create({

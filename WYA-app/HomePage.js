@@ -4,7 +4,7 @@ import Top from "./Top";
 const HomePage = ({ navigation }) => {
     
   const pressHandler = () => {
-    navigation.navigate('Login');
+    navigation.navigate('FriendList');
   }
 
 
