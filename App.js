@@ -1,14 +1,16 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomePage from './WYA-app/HomePage';
-import LoginPage from './WYA-app/LoginPage';
-import Friendlist from './WYA-app/FriendlistPage';
+import Signin from './WYA-app/Signin';
 import SignUpPage from './WYA-app/SignUpPage';
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Platform } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
-import StartPage from './WYA-app/StartPage';
+import {Provider as AuthProvider} from './context/AuthContext.js';
+import {Context as AuthContext} from './context/AuthContext';
+
+import Friendlist from './WYA-app/FriendlistPage';
 import ClassesPage from './WYA-app/ClassesPage';
+import StartPage from './WYA-app/StartPage';
 import AddClassesPage from './WYA-app/AddClassesPage';
 
 import * as Device from 'expo-device';
@@ -22,10 +24,31 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export default function App() {
+const AuthStack = createNativeStackNavigator();
+function authFlow() {
+  return (
+    <AuthStack.Navigator>
+      <AuthStack.Screen
+        options={{headerShown: false}}
+        name="Signin"
+        component={Signin}
+      />
+      <AuthStack.Screen
+        options={{headerShown: false}}
+        name="Signup"
+        component={SignUpPage}
+      />
+    </AuthStack.Navigator>
+  );
+}
 
-  const Stack = createNativeStackNavigator();
 
+const Stack = createNativeStackNavigator();
+function App() {
+
+  const {state} = React.useContext(AuthContext);
+  console.log(state); 
+  
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
@@ -51,22 +74,34 @@ export default function App() {
   }, []);
 
   return (
-    // <View styles={styles.containter}>
-    //   <Text>Hello </Text>
-
-  <NavigationContainer>
-       <Stack.Navigator>
-          <Stack.Screen name="Home" component={ClassesPage} />
-          <Stack.Screen name="Login" component={LoginPage} />
-          <Stack.Screen name="signup" component={SignUpPage} />
-          <Stack.Screen name="FriendList" component={Friendlist} />
-          <Stack.Screen name="Classes" component={ClassesPage} />
-          <Stack.Screen name ="AddClass" component={AddClassesPage}/>
-      </Stack.Navigator> 
-  </NavigationContainer>
-  // </s>
+    <NavigationContainer>
+      <Stack.Navigator>
+        {state.token === null ? (
+          <>
+            <Stack.Screen
+              name="Auth"
+              component={authFlow}
+            />
+          </>
+        ) : (
+          <Stack.Screen
+            name="Home"
+            component={HomePage}
+          />
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
+
+export default () => {
+  return (
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  );
+};
+
 
 
 const styles = StyleSheet.create({

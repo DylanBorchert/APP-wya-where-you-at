@@ -1,13 +1,15 @@
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import { Button } from "react-native";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { TouchableOpacity } from "react-native";
 import { TextInput } from "react-native";
+import {Context as AuthContext} from '../context/AuthContext';
 import Top from "./Top";
 
-const LoginPage = ({ navigation }) => {
+const Signin = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const {state, signin} = useContext(AuthContext);
 
   const [buttonText, setButtonText] = useState("Submit");
 
@@ -67,7 +69,7 @@ const LoginPage = ({ navigation }) => {
           onChangeText={(text) => setPassword(text)}
         />
 
-        <TouchableOpacity style={styles.buttons} onPress={loginUser}>
+        <TouchableOpacity style={styles.buttons} onPress={() => {signin({email, password});}}>
           <Text style={styles.buttonText}>{buttonText}</Text>
         </TouchableOpacity>
         <View style={styles.textGroup}>
@@ -171,4 +173,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginPage;
+export default Signin;
