@@ -28,12 +28,14 @@ Notifications.setNotificationHandler({
 
 const AuthStack = createStackNavigator();
 function AuthFlow() {
+  const {state} = React.useContext(AuthContext);
   return (
     <AuthStack.Navigator>
       <AuthStack.Screen
         options={{headerShown: false}}
         name="Signin"
         component={Signin}
+        initialParams={{authState: state}}
       />
       <AuthStack.Screen
         options={{headerShown: false}}
@@ -86,8 +88,7 @@ function HomeFlow() {
 const Stack = createStackNavigator();
 function App() {
 
-  const {state} = React.useContext(AuthContext);
-  console.log(state); 
+  const {state} = React.useContext(AuthContext); 
   
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
@@ -95,11 +96,15 @@ function App() {
   const responseListener = useRef();
 
   useEffect(() => {
-    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+    registerForPushNotificationsAsync().then(token => {
+      setExpoPushToken(token);
+      state.pushtoken = token;
+    });
 
     // This listener is fired whenever a notification is received while the app is foregrounded
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
       setNotification(notification);
+      console.log(notification);
     });
 
     // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)

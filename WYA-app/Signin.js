@@ -1,15 +1,16 @@
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import { Button } from "react-native";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { TouchableOpacity } from "react-native";
 import { TextInput } from "react-native";
 import {Context as AuthContext} from '../context/AuthContext';
 import Top from "./Top";
 
-const Signin = ({ navigation }) => {
-  const [email, setEmail] = useState("");
+const Signin = ({route, navigation}) => {
+  const [email, setEmail] = useState("mfudg395@mtroyal.ca");
   const [password, setPassword] = useState("");
   const {state, signin} = useContext(AuthContext);
+  const [pushtoken, setpushToken] = useState(state.pushtokenll);
 
   const [buttonText, setButtonText] = useState("Submit");
 
@@ -17,32 +18,12 @@ const Signin = ({ navigation }) => {
     navigation.navigate("Signup");
   };
 
-  const loginUser = async () => {
-    
-    try {
-      const response = await fetch("http://10.0.0.213:8080/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
+  useEffect(() => {
 
-      const data = await response.json();
+    setpushToken(state.pushtoken);
 
-      if (data[0].status === "success") {
-        //navigate to the friendlist page if login successful
-      } else {
-        alert("Incorrect email or password");
-      }
-    } catch (error) {
-      alert("Incorrect email or password");
-    }
-    
-  };
+  }, [email, password]);
+
 
   return (
     <View style={styles.page}>
@@ -59,16 +40,17 @@ const Signin = ({ navigation }) => {
           id={"emailField"}
           style={styles.inputField}
           placeholder="Email"
+          value="mfudg395@mtroyal.ca"
           onChangeText={(text) => setEmail(text)}
         />
         <TextInput
           style={styles.inputField}
           secureTextEntry={true}
-          placeholder="Password"
+          placeholder="myPassword"
           onChangeText={(text) => setPassword(text)}
         />
 
-        <TouchableOpacity style={styles.buttons} onPress={() => {signin({email, password});}}>
+        <TouchableOpacity style={styles.buttons} onPress={() => {signin({email, password, pushtoken});}}>
           <Text style={styles.buttonText}>{buttonText}</Text>
         </TouchableOpacity>
         <View style={styles.textGroup}>
