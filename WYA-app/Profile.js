@@ -55,7 +55,27 @@ const Profile = ({ navigation }) => {
   }
 
   const updateStatusHandler = async () => {
-    alert("To-do");
+    let newStatus;
+    if (status == "On campus")
+      newStatus = "Busy"
+    else if (status == "Busy")
+      newStatus = "On campus"
+
+    try {
+      const response = await fetch(`http://35.226.48.108:8080/api/status`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: state.email,
+          status: newStatus,
+        }),
+      });
+    } catch (err) {
+      console.log(err);
+    }
+    setStatus(newStatus);
   }
   
   //doing styling with tailwind, to lazy to make a stylesheet
