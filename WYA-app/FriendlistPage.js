@@ -64,7 +64,7 @@ const FriendlistPage = () =>  {
         <View style={styles.banner}>
           <Text style={styles.bannerText}>W Y A</Text>
           <TouchableHighlight onPress={pressHandler}>
-          <Image style={styles.image} source={data[state.profile_pic].image} /> 
+          {/* <Image style={styles.image} source={state.profile_pic.image} />  */}
           {/* <Image style={styles.image} source={findProfilePic} />  */}
 
           </TouchableHighlight>
