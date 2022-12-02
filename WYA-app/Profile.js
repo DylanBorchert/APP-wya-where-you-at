@@ -9,6 +9,15 @@ const Profile = ({ navigation }) => {
   const {state} = React.useContext(AuthContext);
   const [name, setName] = useState('');
   const [status, setStatus] = useState('');
+  const [profilePic, setProfilePic] = useState(1);
+  const profilePicString = 0;
+  const data =  [
+    {id:0, image: require("./images/bull.png")},
+    {id:1, image: require("./images/chick.png")},
+    {id:2, image: require("./images/lemur.png")},
+    {id:3, image: require("./images/whale.png")},
+    {id:4, image: require("./images/zebra.png")},
+   ];
 
   const getName = async () => {
     
@@ -23,7 +32,9 @@ const Profile = ({ navigation }) => {
         //update push token
       var data = await response.json();
       setName(data[0]?.fname);
-
+      setProfilePic(data[0]?.profile_pic);
+      profilePicString = profilePic;
+      console.log(profilePic)
     } catch (err) {
       console.log(err);
     }
@@ -81,9 +92,9 @@ const Profile = ({ navigation }) => {
   //doing styling with tailwind, to lazy to make a stylesheet
   return (
     <View style={tw`w-full h-full bg-primary p-3`}>
-      <View style={tw`bg-white rounded p-3 justify-center align-middle`}>
+      <View style={tw`bg-white rounded p-3 justify-center`}>
         <View style={tw`m-auto`}>
-          <Image style={tw.style('h-20 w-20 rounded-2xl')}source={{uri: 'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000'}}/>
+          <Image style={tw.style('h-20 w-20 rounded-2xl')}source={data[profilePic].image}/>
         </View>
         <View>
           <Text style={tw`text-2xl font-bold`}>{name} <Text style={tw`text-lg font-normal`}>{status}</Text></Text>
