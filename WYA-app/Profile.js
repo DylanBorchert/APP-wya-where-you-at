@@ -8,7 +8,7 @@ const Profile = ({ navigation }) => {
 
   const {state} = React.useContext(AuthContext);
   const [name, setName] = useState('');
-
+  const [status, setStatus] = useState('');
 
   const getName = async () => {
     
@@ -22,7 +22,6 @@ const Profile = ({ navigation }) => {
       });
         //update push token
       var data = await response.json();
-      console.log(data);
       setName(data[0]?.fname);
 
     } catch (err) {
@@ -34,9 +33,30 @@ const Profile = ({ navigation }) => {
   useEffect(() => {
 
     getName();
+    getStatus();
 
 
   }, []);
+
+  const getStatus = async () => {
+    try {
+      const response = await fetch(`http://35.226.48.108:8080/api/status/${state.email}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      setStatus(data[0].status);
+      
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const updateStatusHandler = async () => {
+    alert("To-do");
+  }
   
   //doing styling with tailwind, to lazy to make a stylesheet
   return (
@@ -46,14 +66,14 @@ const Profile = ({ navigation }) => {
           <Image style={tw.style('h-20 w-20 rounded-2xl')}source={{uri: 'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000'}}/>
         </View>
         <View>
-          <Text style={tw`text-2xl font-bold`}>{name} <Text style={tw`text-lg font-normal`}>🟢 Available</Text></Text>
+          <Text style={tw`text-2xl font-bold`}>{name} <Text style={tw`text-lg font-normal`}>{status}</Text></Text>
         </View>
       </View>
       <View style={tw`flex flex-row justify-around pt-4`}>
         <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`}>
           <Text style={tw`text-center`}>Edit Profile</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`}>
+        <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`} onPress={updateStatusHandler}>
           <Text style={tw`text-center`}>Switch Status</Text>
         </TouchableOpacity>
         <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`}>
