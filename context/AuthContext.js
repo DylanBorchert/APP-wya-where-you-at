@@ -9,6 +9,7 @@ const authReducer = (state, action) => {
       return {
         token: action.payload.token,
         email: action.payload.email,
+        pushtoken: action.payload.pushtoken,
       };
     default:
       return state;
@@ -22,16 +23,39 @@ const signup = dispatch => {
 };
 
 const signin = dispatch => {
-  return ({email, password}) => {
+  return async ({email, password, pushtoken}) => {
+
     // Do some API Request here
-    console.log('Signin');
-    dispatch({
-      type: 'signin',
-      payload: {
-        token: 'some access token here',
-        email,
-      },
-    });
+    try {
+      const response = await fetch("http://35.226.48.108:8080/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+      //update push token
+
+      var data = await response.json();
+      if (data[0]?.status === "success") { //if login is successful
+        dispatch({
+          type: 'signin', 
+          payload: {
+            token: 'some access token here', 
+            email,
+            pushtoken,
+          }
+        });
+      } else {
+        alert("Incorrect email or password");
+      }
+    } catch (error) {
+      alert("Server Error");
+      console.log(error);
+    }
   };
 };
 
@@ -44,5 +68,5 @@ const signout = dispatch => {
 export const {Provider, Context} = createDataContext(
   authReducer,
   {signin, signout, signup},
-  {token: null, email: ''},
+  {token: null, email: '', pushtoken: null},
 );

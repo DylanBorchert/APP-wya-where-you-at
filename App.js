@@ -2,9 +2,10 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Geolocation from 'react-native-geolocation-service';
 import Signin from './WYA-app/Signin';
 import SignUpPage from './WYA-app/SignUpPage';
-import { StyleSheet, Text, View, Platform } from 'react-native';
+import { StyleSheet, Text, View, Platform, PermissionsAndroid } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
 import {Provider as AuthProvider} from './context/AuthContext.js';
 import {Context as AuthContext} from './context/AuthContext';
@@ -17,6 +18,7 @@ import AddClassesPage from './WYA-app/AddClassesPage';
 
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
+import Profile from './WYA-app/Profile';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -28,12 +30,14 @@ Notifications.setNotificationHandler({
 
 const AuthStack = createStackNavigator();
 function AuthFlow() {
+  const {state} = React.useContext(AuthContext);
   return (
     <AuthStack.Navigator>
       <AuthStack.Screen
         options={{headerShown: false}}
         name="Signin"
         component={Signin}
+        initialParams={{authState: state}}
       />
       <AuthStack.Screen
         options={{headerShown: false}}
@@ -60,7 +64,7 @@ function HomeFlow() {
       />   
       <Tab.Screen 
         name="Profile" 
-        component={StartPage} 
+        component={Profile} 
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
@@ -86,8 +90,7 @@ function HomeFlow() {
 const Stack = createStackNavigator();
 function App() {
 
-  const {state} = React.useContext(AuthContext);
-  console.log(state); 
+  const {state} = React.useContext(AuthContext); 
   
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
@@ -95,11 +98,15 @@ function App() {
   const responseListener = useRef();
 
   useEffect(() => {
-    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+    registerForPushNotificationsAsync().then(token => {
+      setExpoPushToken(token);
+      state.pushtoken = token;
+    });
 
     // This listener is fired whenever a notification is received while the app is foregrounded
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
       setNotification(notification);
+      console.log(notification);
     });
 
     // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
