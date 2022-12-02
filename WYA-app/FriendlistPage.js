@@ -14,12 +14,28 @@ import {
 } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import {Context as AuthContext} from '../context/AuthContext';
-
+// import './images';
+import profilePicString from './Profile';
 
 const FriendlistPage = () =>  {
   
     const [friends, setFriends] = useState([]);
     const {state} = React.useContext(AuthContext);
+    // const images = ["./images/bull.png", "2", "3", "4", "5", "6"];
+    // const imageList = {
+    //           image:require("./images/bull.png")
+    // }
+
+     const data =  [
+      {id:0, image: require("./images/bull.png")},
+      {id:1, image: require("./images/chick.png")},
+      {id:2, image: require("./images/lemur.png")},
+      {id:3, image: require("./images/whale.png")},
+      {id:4, image: require("./images/zebra.png")},
+     ];
+
+     console.log("+++++++++======+++++++++++")
+    console.log(state)
 
     useEffect(() => {
          
@@ -40,13 +56,17 @@ const FriendlistPage = () =>  {
       //goes to users classes "profile"
       this.props.navigation.navigate('Classes');
     }
+
+
     return (
 
       <View style={styles.container}>
         <View style={styles.banner}>
           <Text style={styles.bannerText}>W Y A</Text>
           <TouchableHighlight onPress={pressHandler}>
-          <Image style={styles.image} source={{uri:img}} /> 
+          <Image style={styles.image} source={data[state.profile_pic].image} /> 
+          {/* <Image style={styles.image} source={findProfilePic} />  */}
+
           </TouchableHighlight>
         </View>
           <View style={styles.body}>
@@ -61,7 +81,7 @@ const FriendlistPage = () =>  {
                 return (
                   <TouchableOpacity>
                     <View style={styles.box}>
-                        <Image style={styles.image} source={{uri:img}}/>
+                        <Image style={styles.image} source={data[item.profile_pic].image}/>
                         <Text style={styles.username}>{item.fname}</Text>
                         <TouchableOpacity style={styles.button}>
                          <Text style={styles.buttonText}>boop</Text>
