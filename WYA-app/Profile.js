@@ -46,7 +46,7 @@ const Profile = ({ navigation }) => {
           <Image style={tw.style('h-20 w-20 rounded-2xl')}source={{uri: 'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000'}}/>
         </View>
         <View>
-          <Text style={tw`text-2xl font-bold`}>{name}</Text>
+          <Text style={tw`text-2xl font-bold`}>{name} <Text style={tw`text-lg font-normal align-right`}>🟢 Available</Text></Text>
         </View>
       </View>
       <View style={tw`flex flex-row justify-around pt-4`}>
