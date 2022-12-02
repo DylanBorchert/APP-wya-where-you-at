@@ -2,7 +2,7 @@
 // import React, { Component } from 'react';
 // import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, FlatList} from 'react-native';
 
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -13,26 +13,28 @@ import {
   FlatList
 } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import {Context as AuthContext} from '../context/AuthContext';
 
 
-export default class FriendlistPage extends Component {
+const FriendlistPage = () =>  {
+  
+    const [friends, setFriends] = useState([]);
+    const {state} = React.useContext(AuthContext);
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [
-         {id:1, image: "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000", username:"johndoe1"},
-         {id:2, image: "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000", username:"johndoe2"},
-         {id:3, image: "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000", username:"johndoe3"},
-         {id:4, image: "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000", username:"johndoe4"},
-         {id:5, image: "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000", username:"johndoe5"},
-         {id:6, image: "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000", username:"johndoe6"},
-      ],
-    };
-  }
+    useEffect(() => {
+         
+      fetch(`http://35.226.48.108:8080/api/friends/${state.email}`)
+          .then((resp) => resp.json())
+          .then(result => {
+            // console.log(result);
+          setFriends(result);
+              
+          })
+
+    }, []);
+
   
   
-  render() {
     const img = "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000";
     const pressHandler = () => {
       //goes to users classes "profile"
@@ -51,7 +53,7 @@ export default class FriendlistPage extends Component {
             <FlatList 
               style={styles.container} 
               enableEmptySections={true}
-              data={this.state.data}
+              data={friends}
               keyExtractor= {(item) => {
                 return item.id;
               }}
@@ -59,8 +61,8 @@ export default class FriendlistPage extends Component {
                 return (
                   <TouchableOpacity>
                     <View style={styles.box}>
-                      <Image style={styles.image} source={{uri: item.image}}/>
-                       <Text style={styles.username}>{item.username}</Text>
+                        <Image style={styles.image} source={{uri:img}}/>
+                        <Text style={styles.username}>{item.fname}</Text>
                         <TouchableOpacity style={styles.button}>
                          <Text style={styles.buttonText}>boop</Text>
                         </TouchableOpacity>
@@ -72,10 +74,10 @@ export default class FriendlistPage extends Component {
       </View>
       
     );
-  }
+  
 }
 
-
+export default FriendlistPage;
 
 const styles = StyleSheet.create({
   container: {
@@ -106,6 +108,7 @@ const styles = StyleSheet.create({
     backgroundColor :"#6d91d9",
   },
   box: {
+    // display: 'flex',
     padding:5,
     marginTop:5,
     marginBottom:5,
@@ -124,13 +127,18 @@ const styles = StyleSheet.create({
     color: "#ff9d99",
     fontSize:22,
     alignSelf:'center',
-    marginLeft:10
+    marginLeft:10,
+    width:100
   }, 
   button: {
+    // display:'flex',
     alignSelf:'center',
-    marginLeft: 110, 
+    marginLeft: 100, 
     backgroundColor: '#6d91d9',
-    borderRadius:10
+    borderRadius:10,
+    // justifyContent:'right'
+    // justifyContent:'flex-end',
+
   }, 
   buttonText: {
     color: "#FFFFFF",
