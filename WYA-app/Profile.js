@@ -17,6 +17,7 @@ const Profile = ({ navigation }) => {
     {id:2, image: require("./images/lemur.png")},
     {id:3, image: require("./images/whale.png")},
     {id:4, image: require("./images/zebra.png")},
+    {id:5, image: require("./images/koala.png")},
    ];
 
   const getName = async () => {

@@ -32,6 +32,7 @@ const FriendlistPage = () =>  {
       {id:2, image: require("./images/lemur.png")},
       {id:3, image: require("./images/whale.png")},
       {id:4, image: require("./images/zebra.png")},
+      {id:5, image: require("./images/koala.png")},
      ];
 
      console.log("+++++++++======+++++++++++")
@@ -82,7 +83,7 @@ const FriendlistPage = () =>  {
                   <TouchableOpacity>
                     <View style={styles.box}>
                         <Image style={styles.image} source={data[item.profile_pic].image}/>
-                        <Text style={styles.username}>{item.fname}</Text>
+                        <Text style={styles.username}>{item.fname} {"\n"}<Text style={styles.statusText}>On campus</Text></Text>
                         <TouchableOpacity style={styles.button}>
                          <Text style={styles.buttonText}>boop</Text>
                         </TouchableOpacity>
@@ -165,6 +166,11 @@ const styles = StyleSheet.create({
     fontSize:17,
     padding: 10,
     fontWeight: 'bold',
-    
+  },
+  statusText: {
+    color: "#000000",
+    fontSize: 17,
+    padding: 10,
+    fontWeight: 'bold',
   }
 });
