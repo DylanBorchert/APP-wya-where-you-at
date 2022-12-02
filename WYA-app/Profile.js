@@ -41,7 +41,7 @@ const Profile = ({ navigation }) => {
   //doing styling with tailwind, to lazy to make a stylesheet
   return (
     <View style={tw`w-full h-full bg-primary p-3`}>
-      <View style={tw`bg-white rounded p-3 justify-center align-middle`}>
+      <View style={tw`bg-white rounded p-3 justify-center`}>
         <View style={tw`m-auto`}>
           <Image style={tw.style('h-20 w-20 rounded-2xl')}source={{uri: 'https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000'}}/>
         </View>
