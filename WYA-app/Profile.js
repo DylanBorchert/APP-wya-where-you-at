@@ -52,7 +52,7 @@ const Profile = ({ navigation }) => {
 
   const getStatus = async () => {
     try {
-      const response = await fetch(`http://35.226.48.108:8080/api/status/${state.email}`, {
+      const response = await fetch(`http://35.226.48.108:8080/api/users/${state.email}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +74,7 @@ const Profile = ({ navigation }) => {
       newStatus = "On campus"
 
     try {
-      const response = await fetch(`http://35.226.48.108:8080/api/status`, {
+      const response = await fetch(`http://35.226.48.108:8080/api/users`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
