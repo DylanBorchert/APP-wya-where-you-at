@@ -2,9 +2,10 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Geolocation from 'react-native-geolocation-service';
 import Signin from './WYA-app/Signin';
 import SignUpPage from './WYA-app/SignUpPage';
-import { StyleSheet, Text, View, Platform } from 'react-native';
+import { StyleSheet, Text, View, Platform, PermissionsAndroid } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
 import {Provider as AuthProvider} from './context/AuthContext.js';
 import {Context as AuthContext} from './context/AuthContext';
@@ -17,6 +18,7 @@ import AddClassesPage from './WYA-app/AddClassesPage';
 
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
+import Profile from './WYA-app/Profile';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -62,7 +64,7 @@ function HomeFlow() {
       />   
       <Tab.Screen 
         name="Profile" 
-        component={StartPage} 
+        component={Profile} 
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (

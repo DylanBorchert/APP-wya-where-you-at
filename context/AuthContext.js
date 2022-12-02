@@ -27,7 +27,7 @@ const signin = dispatch => {
 
     // Do some API Request here
     try {
-      const response = await fetch("http://10.0.0.213:8080/login", {
+      const response = await fetch("http://35.226.48.108:8080/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -40,7 +40,7 @@ const signin = dispatch => {
       //update push token
 
       var data = await response.json();
-      if (data[0]?.status === "success") {
+      if (data[0]?.status === "success") { //if login is successful
         dispatch({
           type: 'signin', 
           payload: {
