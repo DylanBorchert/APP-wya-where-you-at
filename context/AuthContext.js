@@ -76,6 +76,7 @@ const signin = dispatch => {
 
     // Do some API Request here
     try {
+      email = email.trim().toLowerCase()
       const response = await fetch("http://35.226.48.108:8080/login", {
         method: "POST",
         headers: {
