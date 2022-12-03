@@ -1,4 +1,4 @@
-import { View, Button, StyleSheet, Text, Image, TouchableOpacity} from "react-native";
+import { View, Button, StyleSheet, Text, Image, TouchableOpacity, Modal} from "react-native";
 import React, { useState, useEffect, useRef } from 'react';
 import {Context as AuthContext} from '../context/AuthContext';
 import { ScrollView } from "react-native-gesture-handler";
@@ -10,6 +10,7 @@ const Profile = ({ navigation }) => {
   const [name, setName] = useState('');
   const [status, setStatus] = useState('');
   const [profilePic, setProfilePic] = useState(1);
+  const [modalVisible, setModalVisible] = useState(false);
   const profilePicString = 0;
   const data =  [
     {id:0, image: require("./images/bull.png")},
@@ -66,33 +67,36 @@ const Profile = ({ navigation }) => {
     }
   }
 
-  const updateStatusHandler = async () => {
-    let newStatus;
-    if (status == "On campus")
-      newStatus = "Busy"
-    else if (status == "Busy")
-      newStatus = "On campus"
-
-    try {
-      const response = await fetch(`http://35.226.48.108:8080/api/users`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: state.email,
-          status: newStatus,
-        }),
-      });
-    } catch (err) {
-      console.log(err);
-    }
-    setStatus(newStatus);
+  const showStatusModal = async () => {
+    
   }
   
   //doing styling with tailwind, to lazy to make a stylesheet
   return (
     <View style={tw`w-full h-full bg-primary p-3`}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+        setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={tw`bg-white rounded-xl p-3 h-50 justify-center m-auto shadow-xl`}>
+          <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`} onPress={() => setModalVisible(!modalVisible)}>
+            <Text style={tw`text-center`}>On campus</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`} onPress={() => setModalVisible(!modalVisible)}>
+            <Text style={tw`text-center`}>In class</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`} onPress={() => setModalVisible(!modalVisible)}>
+            <Text style={tw`text-center`}>Busy</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`} onPress={() => setModalVisible(!modalVisible)}>
+            <Text style={tw`text-center`}>Cancel</Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
       <View style={tw`bg-white rounded p-3 justify-center`}>
         <View style={tw`m-auto`}>
           <Image style={tw.style('h-20 w-20 rounded-2xl')}source={data[profilePic].image}/>
@@ -105,7 +109,7 @@ const Profile = ({ navigation }) => {
         <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`}>
           <Text style={tw`text-center`}>Edit Profile</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`} onPress={updateStatusHandler}>
+        <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`} onPress={() => setModalVisible(!modalVisible)}>
           <Text style={tw`text-center`}>Switch Status</Text>
         </TouchableOpacity>
         <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`}>
