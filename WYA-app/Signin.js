@@ -5,14 +5,16 @@ import { TouchableOpacity } from "react-native";
 import { TextInput } from "react-native";
 import {Context as AuthContext} from '../context/AuthContext';
 import Top from "./Top";
+import tw from "../lib/tailwind";
 
 const Signin = ({route, navigation}) => {
-  const [email, setEmail] = useState("mfudg395@mtroyal.ca");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const {state, signin} = useContext(AuthContext);
-  const [pushtoken, setpushToken] = useState(state.pushtokenll);
+  const [pushtoken, setpushToken] = useState(state.pushtoken);
 
   const [buttonText, setButtonText] = useState("Submit");
+  
 
   const signupHandler = () => {
     navigation.navigate("Signup");
@@ -40,7 +42,6 @@ const Signin = ({route, navigation}) => {
           id={"emailField"}
           style={styles.inputField}
           placeholder="Email"
-          value="mfudg395@mtroyal.ca"
           onChangeText={(text) => setEmail(text)}
         />
         <TextInput
@@ -49,7 +50,6 @@ const Signin = ({route, navigation}) => {
           placeholder="myPassword"
           onChangeText={(text) => setPassword(text)}
         />
-
         <TouchableOpacity style={styles.buttons} onPress={() => {signin({email, password, pushtoken});}}>
           <Text style={styles.buttonText}>{buttonText}</Text>
         </TouchableOpacity>

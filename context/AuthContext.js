@@ -17,8 +17,57 @@ const authReducer = (state, action) => {
 };
 
 const signup = dispatch => {
-  return ({email, password}) => {
-    console.log('Signup');
+  return async ({email, password, password2, userName, fname, phoneNumber, pushtoken}) => {
+    try{
+
+      //check if email is valid with regex
+      email = email.trim().toLowerCase()
+      //check if all fields are filled
+      if (email === "" || password === "" || password2 === "" || userName === "" || fname === "" || phoneNumber === "") {
+        alert("Please fill out all fields");
+        return;
+      }
+      if(password !== password2){
+        alert("Passwords do not match");
+        return;
+      }
+      const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if(!emailRegex.test(email)){
+        alert("Please enter a valid email");
+        return;
+      }
+      const response = await fetch("http://35.226.48.108:8080/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            password: password,
+            userName: userName,
+            name: fname,
+            phoneNumber: phoneNumber,
+            pushtoken: pushtoken,
+          }),
+        });
+        //update push token
+  
+        var data = await response.json();
+
+        if(response.status === 200){
+          dispatch({type: 'signup', payload: {token: data.token, email: email, pushtoken: pushtoken}});
+        }else{
+          alert(data.error);  
+        }
+
+      console.log("signup");
+      console.log(`email: ${email} password: ${password} userName: ${userName} fname: ${fname} phoneNumber: ${phoneNumber} pushtoken: ${pushtoken}`);
+
+    } catch (error) {
+      alert("Server Error");
+      console.log(error);
+    }
+    
   };
 };
 
@@ -27,6 +76,7 @@ const signin = dispatch => {
 
     // Do some API Request here
     try {
+      email = email.trim().toLowerCase()
       const response = await fetch("http://35.226.48.108:8080/login", {
         method: "POST",
         headers: {
@@ -35,6 +85,7 @@ const signin = dispatch => {
         body: JSON.stringify({
           email: email,
           password: password,
+          push_token: pushtoken,
         }),
       });
       //update push token
