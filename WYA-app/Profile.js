@@ -1,7 +1,6 @@
 import { View, Button, StyleSheet, Text, Image, TouchableOpacity} from "react-native";
 import React, { useState, useEffect, useRef } from 'react';
 import {Context as AuthContext} from '../context/AuthContext';
-import { ScrollView } from "react-native-gesture-handler";
 import tw from '../lib/tailwind';
 
 const Profile = ({ navigation }) => {
