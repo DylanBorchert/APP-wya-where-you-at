@@ -13,44 +13,78 @@ const AddClassesPage = ({navigation}) => {
     const [classDaysOfWeek, setClassDaysOfWeek] = useState ("");
     const [classSemester, setClassSemester] = useState("");
     const [classType, setClassType] = useState("");
-    const ClassesPageHandler = async () => {
-        await fetch("http://10.239.21.58:8080/api/courses", {
-            method: "POST",
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: className,
-                course_subject: classSubject,
-                course_code: classCode,
-                course_section: classSection,
-                start_time: classStartTimeState,
-                end_time: classEndTimeState,
-                days_of_week: classDaysOfWeek,
-                semester: classSemester
-            })
-        });
+    const [classRoom, setClassRoom] = useState("");
+    const [classID, setClassID] = useState(0);
 
-        await fetch("http://10.239.21.58:8080/api/schedules", {
-            method: "POST",
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: "mfudg395@mtroyal.ca",
-                course_id: courseID
-            })
-        });
-        // const data = await response.json();
-        navigation.navigate('Classes');
+    const ClassesPageHandler = async () => {
+        try {
+            let response = await fetch (
+                'http://35.226.48.108:8080/api/courses', {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        "course_subject": classSubject,
+                        "course_code": classCode,
+                        "course_section": classSection,
+                        "name": className,
+                        "start_time": classStartTimeState,
+                        "end_time": classEndTimeState,
+                        "days_of_week": classDaysOfWeek,
+                        "semester": classSemester,
+                        "course_type": classType,
+                        "room": classRoom
+                    })
+                    
+                }
+            );
+            const data = await response.json();
+            if (response.status == 200) {
+                console.log("Class was successfully added")
+            }
+        } catch (error) {
+            console.error("------------" + error);
+        }
+
+        try {
+            const lastCourseResponse = await fetch("http://35.226.48.108:8080/api/courses_last");
+            const json = await lastCourseResponse.json();
+            const last_id = json[0].last_id;
+
+            let response = await fetch (
+                'http://35.226.48.108:8080/api/schedules/mfudg395@mtroyal.ca', 
+                {
+                    method: 'POST',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        "email": 'mfudg395@mtroyal.ca',
+                        "course_id": last_id
+                    })
+                    
+                }
+            );
+            if (response.status == 200) {
+                console.log("Course was successfully linked with user");
+            } else {
+                console.log(response.status);
+            }
+
+        } catch (error) {
+            console.error ("-------" + error)
+        }
+
+        // navigation.navigate('Classes');
     };
 
     const classTypes = [
-        {key: '1', value: 'Lecture'},
-        {key: '2', value: 'Tutorial'},
-        {key: '3', value: 'Lab'}
+        {key: 'LEC', value: 'Lecture'},
+        {key: 'TUT', value: 'Tutorial'},
+        {key: 'LAB', value: 'Lab'}
     ];
 
     const startTime = [
@@ -107,20 +141,19 @@ const AddClassesPage = ({navigation}) => {
         {key: '20:50:00', value: '8:50 PM'}
     ];
 
-    
-
     return (
         <View>
             <View>
                 <TextInput style={styles.inputField} onChangeText={newText => setClassName(newText)} placeholder="Name"/>
                 <TextInput style={styles.inputField} onChangeText={newText => setClassSubject(newText)} placeholder="Subject"/>
                 <TextInput style={styles.inputField} onChangeText={newText => setClassSection(newText)} placeholder="Section"/>
-                <SelectList style={styles.inputField} save="key" setSelected={} data={classTypes} placeholder='Type of Class'/>
-                <TextInput style={styles.inputField} setSelected={(val) => setSelected(val)} data={startTime} onChangeText={newText => setClassDaysOfWeek(newText)} placeholder="Days of the Week"/>
-                <SelectList style={styles.inputField} setSelected={(val) => setSelected(val)}  data={endTime} save="key" placeholder='Start Time'/>
-                <SelectList style={styles.inputField}  save="key" placeholder='End Time'/>
+                <SelectList style={styles.inputfield} data={classTypes}  placeholder='Type of Class' save='key' setSelected={(key) => setClassType(key)}/>
+                <TextInput style={styles.inputField} onChangeText={newText => setClassDaysOfWeek(newText)} placeholder="Days of the Week"/>
+                <SelectList style={styles.inputField} data={startTime} placeholder='Start Time' save='key' setSelected={(key) => setClassStartTime(key)}/>
+                <SelectList style={styles.inputField} data={endTime} placeholder='End Time' save='key' setSelected={(key) => setClassEndTime(key)}/>
                 <TextInput style={styles.inputField} onChangeText={newText => setClassCode(newText)} placeholder="Course Code"/>
                 <TextInput style={styles.inputField} onChangeText={newText => setClassSemester(newText)} placeholder="Semester (ex: F2022)"/>
+                <TextInput style={styles.inputField} onChangeText={newText => setClassRoom(newText)} placeholder="Classroom"/>
             </View>
             <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.buttons}>
@@ -160,7 +193,7 @@ const styles = StyleSheet.create ({
         borderRadius: 10,
         height: 50,
         width: 350,
-        marginBottom: 30,
+        marginBottom: 20,
         paddingLeft: 20,
         alignContent: 'center',
     },
