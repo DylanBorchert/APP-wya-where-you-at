@@ -67,9 +67,25 @@ const Profile = ({ navigation }) => {
     }
   }
 
-  const showStatusModal = async () => {
-    
+  const statusPressHandler = async (newStatus) => {
+    try {
+      const response = await fetch(`http://35.226.48.108:8080/api/users`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: state.email,
+          status: newStatus,
+        }),
+      });
+      setStatus(newStatus);
+      setModalVisible(!modalVisible);
+    } catch (err) {
+      console.log(err);
+    }
   }
+    
   
   //doing styling with tailwind, to lazy to make a stylesheet
   return (
@@ -82,15 +98,18 @@ const Profile = ({ navigation }) => {
         setModalVisible(!modalVisible);
         }}
       >
-        <View style={tw`bg-white rounded-xl p-3 h-50 justify-center m-auto shadow-xl`}>
-          <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`} onPress={() => setModalVisible(!modalVisible)}>
-            <Text style={tw`text-center`}>On campus</Text>
+        <View style={tw`bg-white rounded-xl p-3 h-55 justify-center m-auto shadow-xl`}>
+          <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`} value={"available"} onPress={() => statusPressHandler("Available")}>
+            <Text style={tw`text-center`}>Available</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`} onPress={() => setModalVisible(!modalVisible)}>
+          <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`} onPress={() => statusPressHandler("In class")}>
             <Text style={tw`text-center`}>In class</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`} onPress={() => setModalVisible(!modalVisible)}>
+          <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`} onPress={() => statusPressHandler("Busy")}>
             <Text style={tw`text-center`}>Busy</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`} onPress={() => statusPressHandler("Off campus")}>
+            <Text style={tw`text-center`}>Off campus</Text>
           </TouchableOpacity>
           <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`} onPress={() => setModalVisible(!modalVisible)}>
             <Text style={tw`text-center`}>Cancel</Text>
