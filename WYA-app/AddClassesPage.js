@@ -54,7 +54,7 @@ const AddClassesPage = ({navigation}) => {
             const last_id = json[0].last_id;
 
             let response = await fetch (
-                'http://35.226.48.108:8080/api/schedules/mfudg395@mtroyal.ca', 
+                'http://35.226.48.108:8080/api/schedules', 
                 {
                     method: 'POST',
                     headers: {
