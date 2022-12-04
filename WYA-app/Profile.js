@@ -67,6 +67,7 @@ const Profile = ({ navigation }) => {
       } else {
         statusToSet = "Off campus";
       }
+      setStatus(statusToSet);
       updateServerStatus(statusToSet);
     } catch (err) {
       console.log(err);
@@ -76,7 +77,7 @@ const Profile = ({ navigation }) => {
     // Updates the status of the logged in user on the API.
     const updateServerStatus = async (newStatus) => {
       try {
-        const response = await fetch(`http://35.226.48.108:8080/api/users`, {
+        await fetch(`http://35.226.48.108:8080/api/users`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
