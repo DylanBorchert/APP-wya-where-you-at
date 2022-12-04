@@ -2,9 +2,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Geolocation from 'react-native-geolocation-service';
 import Signin from './WYA-app/Signin';
-import SignUpPage from './WYA-app/SignUpPage';
+import SignUp from './WYA-app/SignUp';
 import { StyleSheet, Text, View, Platform, PermissionsAndroid } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
 import {Provider as AuthProvider} from './context/AuthContext.js';
@@ -19,6 +18,7 @@ import AddClassesPage from './WYA-app/AddClassesPage';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import Profile from './WYA-app/Profile';
+import tw from './lib/tailwind';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -32,17 +32,16 @@ const AuthStack = createStackNavigator();
 function AuthFlow() {
   const {state} = React.useContext(AuthContext);
   return (
+    
     <AuthStack.Navigator>
       <AuthStack.Screen
-        options={{headerShown: false}}
         name="Signin"
         component={Signin}
         initialParams={{authState: state}}
       />
       <AuthStack.Screen
-        options={{headerShown: false}}
         name="Signup"
-        component={SignUpPage}
+        component={SignUp}
       />
     </AuthStack.Navigator>
   );
@@ -128,6 +127,7 @@ function App() {
             <Stack.Screen
               name="Login"
               component={AuthFlow}
+              options={{headerShown: false}}
             />
           </>
         ) : (

@@ -1,31 +1,47 @@
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import { Button } from "react-native";
-import { useState, useContext, useEffect } from "react";
+import { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import { TextInput } from "react-native";
-import {Context as AuthContext} from '../context/AuthContext';
 import Top from "./Top";
-import tw from "../lib/tailwind";
 
-const Signin = ({route, navigation}) => {
+const LoginPage = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const {state, signin} = useContext(AuthContext);
-  const [pushtoken, setpushToken] = useState(state.pushtoken);
 
   const [buttonText, setButtonText] = useState("Submit");
-  
 
   const signupHandler = () => {
-    navigation.navigate("Signup");
+    navigation.navigate("signup");
   };
 
-  useEffect(() => {
+  const loginUser = async () => {
+    
+    try {
+      const response = await fetch("http://10.0.0.213:8080/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
 
-    setpushToken(state.pushtoken);
+      const data = await response.json();
 
-  }, [email, password]);
-
+      if (data[0].status === "success") {
+        //navigate to the friendlist page if login successful
+        navigation.navigate("FriendList");
+      } else {
+        alert("Incorrect email or password");
+      }
+    } catch (error) {
+      alert("Incorrect email or password");
+    }
+    
+  };
 
   return (
     <View style={styles.page}>
@@ -47,10 +63,11 @@ const Signin = ({route, navigation}) => {
         <TextInput
           style={styles.inputField}
           secureTextEntry={true}
-          placeholder="myPassword"
+          placeholder="Password"
           onChangeText={(text) => setPassword(text)}
         />
-        <TouchableOpacity style={styles.buttons} onPress={() => {signin({email, password, pushtoken});}}>
+
+        <TouchableOpacity style={styles.buttons} onPress={loginUser}>
           <Text style={styles.buttonText}>{buttonText}</Text>
         </TouchableOpacity>
         <View style={styles.textGroup}>
@@ -154,4 +171,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Signin;
+export default LoginPage;

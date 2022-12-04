@@ -13,6 +13,7 @@ module.exports = {
       extend: {
         colors: {
             'primary': '#6d91d9',
+            'secondary': '#FFCF99',
         },
       },
     },
@@ -26,6 +27,14 @@ module.exports = {
                 'debug': {
                     'box-shadow': 'inset 0px 0px 0px 1px #f00',
                 },
+                'inputField': {
+                  fontSize: 20,
+                  fontWeight: "semi-bold",
+                  backgroundColor: "white",
+                  borderRadius: 10,
+                  padding: 10,
+                  alignContent: "center",
+                }
 
             });
         }),
