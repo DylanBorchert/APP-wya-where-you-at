@@ -51,21 +51,45 @@ const Profile = ({ navigation }) => {
 
   }, []);
 
+  // Updates the status of the logged in user in the frontend.
   const getStatus = async () => {
+    let statusToSet = "";
     try {
-      const response = await fetch(`http://35.226.48.108:8080/api/users/${state.email}`, {
+      const response = await fetch(`http://35.226.48.108:8080/api/geolocation`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
       });
       const data = await response.json();
-      setStatus(data[0].status);
-      
+      if (data.isp == "Mount Royal University") {
+        statusToSet = "Available";
+      } else {
+        statusToSet = "Off campus";
+      }
+      updateServerStatus(statusToSet);
     } catch (err) {
       console.log(err);
     }
   }
+
+    // Updates the status of the logged in user on the API.
+    const updateServerStatus = async (newStatus) => {
+      try {
+        const response = await fetch(`http://35.226.48.108:8080/api/users`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: state.email,
+            status: newStatus,
+          }),
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }
 
   const statusPressHandler = async (newStatus) => {
     try {
@@ -84,8 +108,7 @@ const Profile = ({ navigation }) => {
     } catch (err) {
       console.log(err);
     }
-  }
-    
+  } 
   
   //doing styling with tailwind, to lazy to make a stylesheet
   return (
