@@ -78,7 +78,9 @@ const AddClassesPage = ({navigation}) => {
             console.error ("-------" + error)
         }
 
-        // navigation.navigate('Classes');
+        
+
+        navigation.navigate('Classes');
     };
 
     const classTypes = [

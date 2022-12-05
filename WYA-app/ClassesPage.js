@@ -76,19 +76,24 @@ const ClassesPage = ({ navigation }) => {
 
     return (
 
-        <View>
+        <View style={styles.page}>
+            <ScrollView style={styles.scrollViewContainer}>
             <View>
                 <Text style={styles.title}>Classes:</Text>
             </View>
-            <View>
-                {this.createClassList()}
-            </View>
-            <View>
+            
+                <View>
+                    {this.createClassList()}
+                </View>
+            </ScrollView>
+
+            <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.buttons} onPress={addClassHandler}>
                     <Text style={styles.buttonText}>Add Class(es)</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+
+        </View >
     )
 }
 
@@ -97,9 +102,10 @@ const styles = StyleSheet.create({
         fontSize: 50,
         paddingBottom: 40,
         alignItems: 'center',
+        color: 'white',
     },
     buttons: {
-        backgroundColor: '#6d91d9',
+        backgroundColor: '#ABCCBA',
         borderRadius: 30,
         height: 50,
         width: 200,
@@ -115,14 +121,28 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     classBlock: {
-        backgroundColor: '#ABCCBA',
+        backgroundColor: '#FFCF99',
         borderRadius: 20,
         width: 350,
         padding: 15,
         lineHeight: 5,
         alignSelf: 'center',
-
+        margin: 15
     },
+    scrollViewContainer: {
+        borderRadius: 10,
+        backgroundColor: '#6d91d9',
+        height: 600,
+        padding: 10,
+    },
+    buttonContainer: {
+        alignItems: 'center',
+        borderRadius: 15,
+    },
+    page: {
+        backgroundColor: '#6d91d9',
+
+    }
 
 });
 
