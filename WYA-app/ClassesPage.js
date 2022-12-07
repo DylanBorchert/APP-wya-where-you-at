@@ -43,9 +43,38 @@ const ClassesPage = ({ navigation }) => {
         }
     };
 
+    const deleteClassHandler = async (classID) => {
+        try {
+            const deleteResponse = await fetch("http://35.226.48.108:8080/api/schedules", 
+            {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    'email': 'mfudg395@mtroyal.ca',
+                    'course_id': classID
+                })
+            });
+            if (deleteResponse.status == 200) {
+                console.log('Delete was successful');
+            }
+            navigation.navigate('AddClass');
+        navigation.navigate('Classes');
+
+        } catch (e) {
+            console.error(e);
+        }
+        
+        
+    };
+
     useEffect(() => {
-        getUserSchedule();
-    }, []);
+        const unsubscribe = navigation.addListener('focus', () => {
+            getUserSchedule();
+        });
+        return unsubscribe;
+    }, [navigation]);
 
     createClassList = () => {
         return schedule.map(c => {
@@ -62,12 +91,16 @@ const ClassesPage = ({ navigation }) => {
             const semester = c[10];
             return (
                 <View key={id} style={styles.classBlock}>
+                    
                     <Text>Name: {subject} {code} - {name}</Text>
                     <Text>Section: {section}</Text>
                     <Text>Type: {type}</Text>
                     <Text>Days of the Week: {days}</Text>
                     <Text>Time: {start} - {end}</Text>
                     <Text>Semester: {semester}   Room: {room}</Text>
+                    <TouchableOpacity onPress={() => deleteClassHandler(id)} style={styles.deleteButton} >
+                        <Text>X</Text>
+                    </TouchableOpacity>
                 </View>
 
             );
@@ -142,6 +175,9 @@ const styles = StyleSheet.create({
     page: {
         backgroundColor: '#6d91d9',
 
+    },
+    deleteButton: {
+        alignSelf: 'flex-end',
     }
 
 });

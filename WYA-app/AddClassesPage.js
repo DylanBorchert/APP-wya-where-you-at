@@ -144,7 +144,7 @@ const AddClassesPage = ({navigation}) => {
     ];
 
     return (
-        <View>
+        <View style={styles.container}>
             <View>
                 <TextInput style={styles.inputField} onChangeText={newText => setClassName(newText)} placeholder="Name"/>
                 <TextInput style={styles.inputField} onChangeText={newText => setClassSubject(newText)} placeholder="Subject"/>
@@ -191,7 +191,6 @@ const styles = StyleSheet.create ({
         fontSize: 20,
         fontWeight: "bold",
         backgroundColor: "white",
-
         borderRadius: 10,
         height: 50,
         width: 350,
@@ -204,7 +203,12 @@ const styles = StyleSheet.create ({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-evenly'
-    }
+    },
+    container: {
+        backgroundColor: '#FFCF99',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 })
 
 export default AddClassesPage;
