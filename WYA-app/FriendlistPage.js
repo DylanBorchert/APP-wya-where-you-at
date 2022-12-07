@@ -94,7 +94,7 @@ const FriendlistPage = ({navigation}) =>  {
                         <Image style={styles.image} source={data[item.profile_pic].image}/>
                         <Text style={styles.username}>{item.fname} {"\n"}<Text style={styles.statusText}>{item.status}</Text></Text>
                         <TouchableOpacity style={styles.button}>
-                         <Text style={styles.buttonText}>boop</Text>
+                         <Text style={styles.buttonText}>Boop</Text>
                         </TouchableOpacity>
                     </View>
                   </TouchableOpacity>
