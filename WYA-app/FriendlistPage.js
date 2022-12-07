@@ -173,6 +173,7 @@ const styles = StyleSheet.create({
   friendsButton: {
     backgroundColor: '#FFFFFF',
     marginTop: 5,
+    marginBottom: 5,
     borderRadius:10,
   },
   friendsButtonText: {
