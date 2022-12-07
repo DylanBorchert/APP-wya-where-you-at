@@ -58,6 +58,20 @@ const AddFriends = () =>  {
       this.props.navigation.navigate('Classes');
     }
 
+    const addFriendButtonHandler = async (friendEmail) => {
+      try {
+        await fetch(`http://35.226.48.108:8080/api/friends/request/${friendEmail}/${state.email}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+        alert("Friend request sent!");
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
 
     return (
 
@@ -80,7 +94,7 @@ const AddFriends = () =>  {
                     <View style={styles.box}>
                         <Image style={styles.image} source={data[item.profile_pic].image}/>
                         <Text style={styles.username}>{item.fname} {"\n"}<Text style={styles.statusText}>{item.status}</Text></Text>
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity style={styles.button} onPress={() => addFriendButtonHandler(item.email)}>
                          <Text style={styles.buttonText}>Add</Text>
                         </TouchableOpacity>
                     </View>
