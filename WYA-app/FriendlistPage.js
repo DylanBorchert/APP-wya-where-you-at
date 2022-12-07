@@ -12,7 +12,7 @@ import {
 import {Context as AuthContext} from '../context/AuthContext';
 import tw from '../lib/tailwind';
 
-const FriendlistPage = () =>  {
+const FriendlistPage = ({navigation}) =>  {
   
     const [friends, setFriends] = useState([]);
     const {state} = React.useContext(AuthContext);
