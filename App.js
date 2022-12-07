@@ -15,6 +15,7 @@ import ClassesPage from './WYA-app/ClassesPage';
 import StartPage from './WYA-app/StartPage';
 import AddClassesPage from './WYA-app/AddClassesPage';
 import AddFriends from './WYA-app/AddFriends';
+import FriendRequests from './WYA-app/FriendRequests';
 
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
@@ -140,6 +141,7 @@ function App() {
               />
             <Stack.Screen name="AddClass" component={AddClassesPage} />
             <Stack.Screen name="AddFriends" component={AddFriends}/>
+            <Stack.Screen name="FriendRequests" component={FriendRequests}/>
           </>
         )}
       </Stack.Navigator>
