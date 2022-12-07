@@ -1,8 +1,10 @@
 import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
 import { SelectList } from 'react-native-dropdown-select-list';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import {Context as AuthContext} from '../context/AuthContext';
 
 const AddClassesPage = ({ navigation }) => {
+    const {state} = React.useContext(AuthContext);
 
     const [className, setClassName] = useState("");
     const [classSubject, setClassSubject] = useState("");
@@ -62,7 +64,7 @@ const AddClassesPage = ({ navigation }) => {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        "email": 'mfudg395@mtroyal.ca',
+                        "email": state.email,
                         "course_id": last_id
                     })
                     

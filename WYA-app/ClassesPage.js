@@ -1,9 +1,11 @@
 import { StyleSheet, Text, TouchableWithoutFeedback, View, Button, TouchableOpacity, TextInput, ScrollView, Touchable } from 'react-native';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import {Context as AuthContext} from '../context/AuthContext';
 
 const ClassesPage = ({ navigation }) => {
 
     const [schedule, setSchedule] = useState([]);
+    const {state} = React.useContext(AuthContext);
 
     const addClassHandler = () => {
         navigation.navigate('AddClass');
@@ -11,33 +13,35 @@ const ClassesPage = ({ navigation }) => {
 
     const getUserSchedule = async () => {
         try {
-            const response = await fetch("http://35.226.48.108:8080/api/schedules/mfudg395@mtroyal.ca");
+            const response = await fetch(`http://35.226.48.108:8080/api/schedules/${state.email}`);
             const responseJSON = await response.json();
             const courses = await fetch("http://35.226.48.108:8080/api/courses");
             const coursesJSON = await courses.json();
 
             let userSchedule = [];
-
-            for (let r of responseJSON) {
-                for (let c of coursesJSON) {
-                    if (c.id === r.course_id) {
-                        let course = [];
-                        course.push(c.id);
-                        course.push(c.name);
-                        course.push(c.course_code);
-                        course.push(c.course_section);
-                        course.push(c.course_subject);
-                        course.push(c.course_type);
-                        course.push(c.days_of_week);
-                        course.push(c.start_time);
-                        course.push(c.end_time);
-                        course.push(c.room);
-                        course.push(c.semester);
-                        userSchedule.push(course);
+            if(responseJSON) {
+                for (let r of responseJSON) {
+                    for (let c of coursesJSON) {
+                        if (c.id === r.course_id) {
+                            let course = [];
+                            course.push(c.id);
+                            course.push(c.name);
+                            course.push(c.course_code);
+                            course.push(c.course_section);
+                            course.push(c.course_subject);
+                            course.push(c.course_type);
+                            course.push(c.days_of_week);
+                            course.push(c.start_time);
+                            course.push(c.end_time);
+                            course.push(c.room);
+                            course.push(c.semester);
+                            userSchedule.push(course);
+                        }
                     }
                 }
+
+                setSchedule(userSchedule);
             }
-            setSchedule(userSchedule);
         } catch (error) {
             console.error(error);
         }
@@ -52,7 +56,7 @@ const ClassesPage = ({ navigation }) => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    'email': 'mfudg395@mtroyal.ca',
+                    'email': state.email,
                     'course_id': classID
                 })
             });
@@ -70,6 +74,7 @@ const ClassesPage = ({ navigation }) => {
     };
 
     useEffect(() => {
+    
         const unsubscribe = navigation.addListener('focus', () => {
             getUserSchedule();
         });
