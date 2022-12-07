@@ -58,6 +58,20 @@ const FriendRequests = () =>  {
       this.props.navigation.navigate('Classes');
     }
 
+    const acceptFriendHandler = async (friendEmail) => {
+        try {
+            await fetch(`http://35.226.48.108:8080/api/friends/requestAccept/${friendEmail}/${state.email}`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json"
+              }
+            });
+            alert("Friend request accepted!");
+          } catch (err) {
+            console.log(err);
+          }
+    }
+
 
     return (
 
@@ -80,7 +94,7 @@ const FriendRequests = () =>  {
                     <View style={styles.box}>
                         <Image style={styles.image} source={data[item.profile_pic].image}/>
                         <Text style={styles.username}>{item.fname} {"\n"}<Text style={styles.statusText}>{item.status}</Text></Text>
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity style={styles.button} onPress={() => acceptFriendHandler(item.email)}>
                          <Text style={styles.buttonText}>Accept</Text>
                         </TouchableOpacity>
                     </View>
