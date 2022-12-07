@@ -67,6 +67,12 @@ const FriendlistPage = () =>  {
   
         </View>
           <View style={styles.body}>
+            <TouchableOpacity style={styles.friendsButton}>
+              <Text style={styles.friendsButtonText}>Add Friends</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.friendsButton}>
+              <Text style={styles.friendsButtonText}>Friend Requests</Text>
+            </TouchableOpacity>
             <FlatList 
               style={styles.container} 
               enableEmptySections={true}
@@ -156,7 +162,19 @@ const styles = StyleSheet.create({
     // justifyContent:'right'
     // justifyContent:'flex-end',
 
-  }, 
+  },
+  friendsButton: {
+    backgroundColor: '#FFFFFF',
+    marginTop: 5,
+    borderRadius:10,
+  },
+  friendsButtonText: {
+    color: "#000000",
+    fontSize:17,
+    padding: 10,
+    fontWeight: 'bold',
+    alignSelf: 'center',
+  },
   buttonText: {
     color: "#FFFFFF",
     fontSize:17,
