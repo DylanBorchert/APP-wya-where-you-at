@@ -1,18 +1,22 @@
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { Button } from 'react-native';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import {Context as AuthContext} from '../context/AuthContext';
 import { TouchableOpacity } from 'react-native';
 
 const StartPage = () => {
 
     const [buttonText, setButtonText] = useState("Get Started");
 
+    const { state } = useContext(AuthContext);
+
 
     return(
         <View style={styles.containter} id="divStartPage">
 
         {/* <Button color= "pink" title= "Get Started" width="200"></Button> */}
-        <TouchableOpacity style={styles.buttons}>
+        <TouchableOpacity style={styles.buttons}
+        onPress={() => {console.log(JSON.stringify(state));}}>
         <Text style={styles.buttonText}>{buttonText}</Text>
         </TouchableOpacity>
         

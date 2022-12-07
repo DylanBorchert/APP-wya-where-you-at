@@ -142,14 +142,15 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         height: 50,
         width: 200,
-        marginTop: 10,
+        marginTop: 20,
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 20,
+        borderRadius: 13,
+        backgroundColor: "white",
     },
     buttonText: {
-        fontSize: 20,
-        color: "white",
+        fontSize: 15,
         setButtonText: "white",
         fontWeight: "bold",
     },
@@ -179,7 +180,6 @@ const styles = StyleSheet.create({
     deleteButton: {
         alignSelf: 'flex-end',
     }
-
 });
 
 export default ClassesPage;
