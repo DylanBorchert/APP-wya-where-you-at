@@ -8,19 +8,18 @@ import {
   FlatList,
   Pressable,
   Modal,
-  PermissionsAndroid
 } from 'react-native';
 import {Context as AuthContext} from '../context/AuthContext';
 import tw from '../lib/tailwind';
 
-const FriendlistPage = ({navigation}) =>  {
+const FriendlistPage = () =>  {
   
     const [friends, setFriends] = useState([]);
     const {state} = React.useContext(AuthContext);
     const [clickedItem, setClickedItem] = useState("");
     const [modalVisible, setModalVisible] = useState(false);
-      const [itemPic, setItemPic] = useState(0);
-
+    const [itemPic, setItemPic] = useState(0);
+    const [userEmail, setUserEmail] = useState("");
 
      const data =  [
       {id:0, image: require("./images/bull.png")},
@@ -102,7 +101,7 @@ const FriendlistPage = ({navigation}) =>  {
               }}
               renderItem={({item}) => {
                 return (
-                  <Pressable onPress={() => {setModalVisible(true); setItemPic(item.profile_pic); setClickedItem(item)}}>
+                  <Pressable onPress={() => {setModalVisible(true); setItemPic(item.profile_pic); setClickedItem(item); setUserEmail(item.email)}}>
                     <View style={styles.box}>
                         <Image style={styles.image} source={data[item.profile_pic].image}/>
                         <Text style={styles.username}>{item.fname} {"\n"}<Text style={styles.statusText}>{item.status}</Text></Text>

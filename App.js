@@ -14,7 +14,6 @@ import Friendlist from './WYA-app/FriendlistPage';
 import ClassesPage from './WYA-app/ClassesPage';
 import StartPage from './WYA-app/StartPage';
 import AddClassesPage from './WYA-app/AddClassesPage';
-import FriendProfile from './WYA-app/FriendProfile';
 
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
@@ -139,7 +138,6 @@ function App() {
               component={HomeFlow}
               />
             <Stack.Screen name="AddClass" component={AddClassesPage} />
-            <Stack.Screen name="FriendProfile" component={FriendProfile} />
           </>
         )}
       </Stack.Navigator>
