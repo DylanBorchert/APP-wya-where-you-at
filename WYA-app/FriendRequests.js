@@ -145,12 +145,12 @@ const styles = StyleSheet.create({
     fontSize:22,
     alignSelf:'center',
     marginLeft:10,
-    width:100
+    width:150
   }, 
   button: {
     // display:'flex',
     alignSelf:'center',
-    marginLeft: 80, 
+    marginLeft: 30, 
     backgroundColor: '#6d91d9',
     borderRadius:10,
     // justifyContent:'right'
