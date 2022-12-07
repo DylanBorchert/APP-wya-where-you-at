@@ -17,7 +17,7 @@ import {Context as AuthContext} from '../context/AuthContext';
 // import './images';
 import profilePicString from './Profile';
 
-const FriendlistPage = ({navigation}) =>  {
+const AddFriends = () =>  {
   
     const [friends, setFriends] = useState([]);
     const {state} = React.useContext(AuthContext);
@@ -40,7 +40,7 @@ const FriendlistPage = ({navigation}) =>  {
 
     useEffect(() => {
          
-      fetch(`http://35.226.48.108:8080/api/friends/${state.email}`)
+      fetch(`http://35.226.48.108:8080/api/friends/Find/${state.email}`)
           .then((resp) => resp.json())
           .then(result => {
             // console.log(result);
@@ -49,10 +49,6 @@ const FriendlistPage = ({navigation}) =>  {
           })
 
     }, []);
-
-    const addFriendsHandler = () => {
-      navigation.navigate('AddFriends');
-    }
 
   
   
@@ -71,12 +67,6 @@ const FriendlistPage = ({navigation}) =>  {
   
         </View>
           <View style={styles.body}>
-            <TouchableOpacity style={styles.friendsButton} onPress={addFriendsHandler}>
-              <Text style={styles.friendsButtonText}>Add Friends</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.friendsButton}>
-              <Text style={styles.friendsButtonText}>Friend Requests</Text>
-            </TouchableOpacity>
             <FlatList 
               style={styles.container} 
               enableEmptySections={true}
@@ -91,7 +81,7 @@ const FriendlistPage = ({navigation}) =>  {
                         <Image style={styles.image} source={data[item.profile_pic].image}/>
                         <Text style={styles.username}>{item.fname} {"\n"}<Text style={styles.statusText}>{item.status}</Text></Text>
                         <TouchableOpacity style={styles.button}>
-                         <Text style={styles.buttonText}>boop</Text>
+                         <Text style={styles.buttonText}>Add</Text>
                         </TouchableOpacity>
                     </View>
                   </TouchableOpacity>
@@ -104,7 +94,7 @@ const FriendlistPage = ({navigation}) =>  {
   
 }
 
-export default FriendlistPage;
+export default AddFriends;
 
 const styles = StyleSheet.create({
   container: {
@@ -166,19 +156,7 @@ const styles = StyleSheet.create({
     // justifyContent:'right'
     // justifyContent:'flex-end',
 
-  },
-  friendsButton: {
-    backgroundColor: '#FFFFFF',
-    marginTop: 5,
-    borderRadius:10,
-  },
-  friendsButtonText: {
-    color: "#000000",
-    fontSize:17,
-    padding: 10,
-    fontWeight: 'bold',
-    alignSelf: 'center',
-  },
+  }, 
   buttonText: {
     color: "#FFFFFF",
     fontSize:17,
