@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     scrollViewContainer: {
         borderRadius: 10,
         backgroundColor: '#6d91d9',
-        height: 600,
+        height: 560,
         padding: 10,
     },
     buttonContainer: {
