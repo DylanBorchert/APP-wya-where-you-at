@@ -1,30 +1,25 @@
-
-// import React, { Component } from 'react';
-// import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, FlatList} from 'react-native';
-
 import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
   View,
   Image,
-  Banner,
   TouchableOpacity,
-  FlatList
+  FlatList,
+  Pressable,
+  Modal,
 } from 'react-native';
-import { TouchableHighlight } from 'react-native-gesture-handler';
 import {Context as AuthContext} from '../context/AuthContext';
-// import './images';
-import profilePicString from './Profile';
+import tw from '../lib/tailwind';
 
 const FriendlistPage = ({navigation}) =>  {
   
     const [friends, setFriends] = useState([]);
     const {state} = React.useContext(AuthContext);
-    // const images = ["./images/bull.png", "2", "3", "4", "5", "6"];
-    // const imageList = {
-    //           image:require("./images/bull.png")
-    // }
+    const [clickedItem, setClickedItem] = useState("");
+    const [modalVisible, setModalVisible] = useState(false);
+    const [itemPic, setItemPic] = useState(0);
+    const [userEmail, setUserEmail] = useState("");
 
      const data =  [
       {id:0, image: require("./images/bull.png")},
@@ -35,15 +30,11 @@ const FriendlistPage = ({navigation}) =>  {
       {id:5, image: require("./images/koala.png")},
      ];
 
-     console.log("+++++++++======+++++++++++")
-    console.log(state)
-
     useEffect(() => {
          
       fetch(`http://35.226.48.108:8080/api/friends/${state.email}`)
           .then((resp) => resp.json())
           .then(result => {
-            // console.log(result);
           setFriends(result);
               
           })
@@ -64,6 +55,13 @@ const FriendlistPage = ({navigation}) =>  {
       //goes to users classes "profile"
       this.props.navigation.navigate('Classes');
     }
+    // const goToFriendsProfile = (email) => {
+    //   setFriendEmail(email);
+    //   console.log(friendEmail)
+    //   navigation.navigate('FriendProfile', {friendEmail});
+    // }
+
+   
 
 
     return (
@@ -71,8 +69,8 @@ const FriendlistPage = ({navigation}) =>  {
       <View style={styles.container}>
         <View style={styles.banner}>
           <Text style={styles.bannerText}>W Y A</Text>
-  
         </View>
+        <View style={styles.containerModal}/>
           <View style={styles.body}>
             <TouchableOpacity style={styles.friendsButton} onPress={addFriendsHandler}>
               <Text style={styles.friendsButtonText}>Add Friends</Text>
@@ -80,6 +78,40 @@ const FriendlistPage = ({navigation}) =>  {
             <TouchableOpacity style={styles.friendsButton} onPress={friendRequestsHandler}>
               <Text style={styles.friendsButtonText}>Friend Requests</Text>
             </TouchableOpacity>
+          <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => {
+                    Alert.alert("Modal has been closed.");
+                    setModalVisible(!modalVisible);
+                    }}
+                    >     
+                    {console.log(clickedItem)}
+                    <View style={styles.centeredView}>
+                    <View style={styles.modalView}>       
+                    <View style={tw`w-full h-full bg-primary p-3`}>
+                    <View style={tw`bg-white rounded p-3 justify-center`}>
+                    <View style={tw`m-auto`}>
+                      <Image style={tw.style('h-20 w-20 rounded-2xl')}source={data[itemPic].image}/>
+                    </View>
+                    <View>
+                      <Text style={tw`text-2xl font-bold`}>{clickedItem.fname} <Text style={tw`text-lg font-normal`}>{clickedItem.status}</Text></Text>
+                    </View>
+                  </View>
+                  <View style={tw`flex flex-row justify-around pt-4`}>
+                    <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`}>
+                      <Text style={tw`text-center`}>Classes</Text>
+                    </TouchableOpacity>
+                  <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`} onPress={() => setModalVisible(!modalVisible)}>
+                    <Text style={tw`text-center`}>Close</Text>
+                  </TouchableOpacity>
+                  </View>
+                </View>
+                </View>
+                </View>
+              
+                  </Modal>
             <FlatList 
               style={styles.container} 
               enableEmptySections={true}
@@ -89,7 +121,7 @@ const FriendlistPage = ({navigation}) =>  {
               }}
               renderItem={({item}) => {
                 return (
-                  <TouchableOpacity>
+                  <Pressable onPress={() => {setModalVisible(true); setItemPic(item.profile_pic); setClickedItem(item); setUserEmail(item.email)}}>
                     <View style={styles.box}>
                         <Image style={styles.image} source={data[item.profile_pic].image}/>
                         <Text style={styles.username}>{item.fname} {"\n"}<Text style={styles.statusText}>{item.status}</Text></Text>
@@ -97,7 +129,7 @@ const FriendlistPage = ({navigation}) =>  {
                          <Text style={styles.buttonText}>Boop</Text>
                         </TouchableOpacity>
                     </View>
-                  </TouchableOpacity>
+                  </Pressable>
                 )
             }}/>
           </View>
@@ -194,5 +226,40 @@ const styles = StyleSheet.create({
     fontSize: 17,
     padding: 10,
     fontWeight: 'bold',
+  },
+  modalView: {
+    width: 350,
+    height:700,
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 15,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center"
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 10
+  },
+  containerModal: {
+    
   }
 });
