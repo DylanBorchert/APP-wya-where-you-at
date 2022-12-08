@@ -9,9 +9,12 @@ import {
   ScrollView,
   Pressable,
   Modal,
+  ImageBackground,
 } from 'react-native';
 import {Context as AuthContext} from '../context/AuthContext';
 import tw from '../lib/tailwind';
+
+
 
 const FriendlistPage = ({navigation}) =>  {
   
@@ -57,7 +60,7 @@ const FriendlistPage = ({navigation}) =>  {
 
     useEffect(() => {
 
-      getName();
+      //getName();
       const unsubscribe = navigation.addListener('focus', () => {
         getUserSchedule();
         fetch(`http://35.226.48.108:8080/api/friends/${state.email}`)
@@ -142,9 +145,9 @@ const FriendlistPage = ({navigation}) =>  {
     if(visible) {
       return (
       <View style={styles.page}>
-              <ScrollView style={styles.scrollViewContainer} >
-              <View>
-                  <Text style={styles.title}>Classes:</Text>
+              <ScrollView key={classList}style={styles.scrollViewContainer} >
+              <View key={container}>
+                  <Text key={text}style={styles.title}>Classes:</Text>
               </View>
             {createClassList()}
                   
@@ -159,13 +162,15 @@ const FriendlistPage = ({navigation}) =>  {
 
     const getUserSchedule = async () => {
       try {
+        if(userEmail){
           const response = await fetch(`http://35.226.48.108:8080/api/schedules/${userEmail}`);
           const responseJSON = await response.json();
           const courses = await fetch("http://35.226.48.108:8080/api/courses");
           const coursesJSON = await courses.json();
 
           let userSchedule = [];
-          if(responseJSON) {
+        
+          
               for (let r of responseJSON) {
                   for (let c of coursesJSON) {
                       if (c.id === r.course_id) {
@@ -184,7 +189,7 @@ const FriendlistPage = ({navigation}) =>  {
                           userSchedule.push(course);
                       }
                   }
-              }
+                }
 
 
               setSchedule(userSchedule);
@@ -205,10 +210,15 @@ const FriendlistPage = ({navigation}) =>  {
         <View style={styles.containerModal}/>
           <View style={styles.body}>
             <TouchableOpacity style={styles.friendsButton} onPress={addFriendsHandler}>
+              <ImageBackground source={require("./images/sprinkles.jpg")} resizeMode="repeat" style={styles.img}>
               <Text style={styles.friendsButtonText}>Add Friends</Text>
+              </ImageBackground>
             </TouchableOpacity>
+            
             <TouchableOpacity style={styles.friendsButton} onPress={friendRequestsHandler}>
+            <ImageBackground source={require("./images/sprinkles.jpg")} resizeMode="repeat" style={styles.img}>
               <Text style={styles.friendsButtonText}>Friend Requests</Text>
+              </ImageBackground>
             </TouchableOpacity>
           <Modal
                     animationType="slide"
@@ -265,12 +275,12 @@ const FriendlistPage = ({navigation}) =>  {
               }}
               renderItem={({item}) => {
                 return (
-                  <Pressable onPress={() => {setModalVisible(true); setItemPic(item.profile_pic); setClickedItem(item); setUserEmail(item.email)}}>
-                    <View style={styles.box}>
-                        <Image style={styles.image} source={data[item.profile_pic].image}/>
-                        <Text style={styles.username}>{item.fname} {"\n"}<Text style={styles.statusText}>{item.status}</Text></Text>
-                        <TouchableOpacity style={styles.button} onPress={() => boopFriend(item.push_token, item.fname)}>
-                         <Text style={styles.buttonText}>Boop</Text>
+                  <Pressable key={0}onPress={() => {setModalVisible(true); setItemPic(item.profile_pic); setClickedItem(item); setUserEmail(item.email)}}>
+                    <View key={1}style={styles.box}>
+                        <Image key={2} style={styles.image} source={data[item.profile_pic].image}/>
+                        <Text key={3}style={styles.username}>{item.fname} {"\n"}<Text key={4} style={styles.statusText}>{item.status}</Text></Text>
+                        <TouchableOpacity key={5}style={styles.button} onPress={() => boopFriend(item.push_token, item.fname)}>
+                         <Text key={6}style={styles.buttonText}>Boop</Text>
                         </TouchableOpacity>
                     </View>
                   </Pressable>
@@ -347,11 +357,23 @@ const styles = StyleSheet.create({
 
   },
   friendsButton: {
+    //flex:2,
     backgroundColor: '#FFFFFF',
+    height: 50,
+    //backgroundImage: 
     marginTop: 5,
     marginBottom: 5,
     borderRadius:10,
   },
+  img: {
+//flex:2,
+alignSelf: 'center',
+height: 50,
+width: 320,
+radius: 10,
+justifyContent: 'center',
+  },
+
   friendsButtonText: {
     color: "#000000",
     fontSize:17,
