@@ -148,15 +148,15 @@ const Profile = ({ navigation }) => {
         </View>
       </View>
       <View style={tw`flex flex-row justify-around pt-4`}>
-        <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`}>
+        {/* <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`}>
           <Text style={tw`text-center`}>Edit Profile</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`} onPress={() => setModalVisible(!modalVisible)}>
           <Text style={tw`text-center`}>Switch Status</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`}>
+        {/* <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`}>
           <Text style={tw`text-center`}>Classes</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </View>
       

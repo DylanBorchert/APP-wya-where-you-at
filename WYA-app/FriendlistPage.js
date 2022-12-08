@@ -14,7 +14,7 @@ import {
 import {Context as AuthContext} from '../context/AuthContext';
 import tw from '../lib/tailwind';
 
-const img = { uri: "https://reactjs.org/logo-og.png" };
+
 
 const FriendlistPage = ({navigation}) =>  {
   
@@ -162,13 +162,15 @@ const FriendlistPage = ({navigation}) =>  {
 
     const getUserSchedule = async () => {
       try {
+        if(userEmail){
           const response = await fetch(`http://35.226.48.108:8080/api/schedules/${userEmail}`);
           const responseJSON = await response.json();
           const courses = await fetch("http://35.226.48.108:8080/api/courses");
           const coursesJSON = await courses.json();
 
           let userSchedule = [];
-          if(responseJSON) {
+        
+          
               for (let r of responseJSON) {
                   for (let c of coursesJSON) {
                       if (c.id === r.course_id) {
@@ -187,7 +189,7 @@ const FriendlistPage = ({navigation}) =>  {
                           userSchedule.push(course);
                       }
                   }
-              }
+                }
 
 
               setSchedule(userSchedule);
@@ -212,8 +214,11 @@ const FriendlistPage = ({navigation}) =>  {
               <Text style={styles.friendsButtonText}>Add Friends</Text>
               </ImageBackground>
             </TouchableOpacity>
+            
             <TouchableOpacity style={styles.friendsButton} onPress={friendRequestsHandler}>
+            <ImageBackground source={require("./images/sprinkles.jpg")} resizeMode="repeat" style={styles.img}>
               <Text style={styles.friendsButtonText}>Friend Requests</Text>
+              </ImageBackground>
             </TouchableOpacity>
           <Modal
                     animationType="slide"
