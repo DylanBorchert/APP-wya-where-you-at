@@ -143,7 +143,6 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     buttons: {
-        backgroundColor: '#ABCCBA',
         borderRadius: 30,
         height: 50,
         width: 200,
