@@ -33,16 +33,38 @@ const FriendlistPage = ({navigation}) =>  {
      ];
 
     useEffect(() => {
-      getUserSchedule();
-      fetch(`http://35.226.48.108:8080/api/friends/${state.email}`)
-          .then((resp) => resp.json())
-          .then(result => {
-          setFriends(result);
-              
-          })
+      const unsubscribe = navigation.addListener('focus', () => {
+        getUserSchedule();
+        fetch(`http://35.226.48.108:8080/api/friends/${state.email}`)
+            .then((resp) => resp.json())
+            .then(result => {
+            setFriends(result);
+                
+            })
+      })
+      return unsubscribe;
 
-    }, []);
+    }, [navigation]);
 
+    const addFriendsHandler = () => {
+      navigation.navigate('AddFriends');
+    }
+
+    const friendRequestsHandler = () => {
+      navigation.navigate('FriendRequests');
+    }
+  
+  
+    const img = "https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?w=2000";
+    const pressHandler = () => {
+      //goes to users classes "profile"
+      this.props.navigation.navigate('Classes');
+    }
+    // const goToFriendsProfile = (email) => {
+    //   setFriendEmail(email);
+    //   console.log(friendEmail)
+    //   navigation.navigate('FriendProfile', {friendEmail});
+    // }
     const createClassList = () => {
       return schedule.map(c => {
           const id = c[0];
@@ -130,6 +152,12 @@ const FriendlistPage = ({navigation}) =>  {
         </View>
         <View style={styles.containerModal}/>
           <View style={styles.body}>
+            <TouchableOpacity style={styles.friendsButton} onPress={addFriendsHandler}>
+              <Text style={styles.friendsButtonText}>Add Friends</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.friendsButton} onPress={friendRequestsHandler}>
+              <Text style={styles.friendsButtonText}>Friend Requests</Text>
+            </TouchableOpacity>
           <Modal
                     animationType="slide"
                     transparent={true}
@@ -190,7 +218,7 @@ const FriendlistPage = ({navigation}) =>  {
                         <Image style={styles.image} source={data[item.profile_pic].image}/>
                         <Text style={styles.username}>{item.fname} {"\n"}<Text style={styles.statusText}>{item.status}</Text></Text>
                         <TouchableOpacity style={styles.button}>
-                         <Text style={styles.buttonText}>boop</Text>
+                         <Text style={styles.buttonText}>Boop</Text>
                         </TouchableOpacity>
                     </View>
                   </Pressable>
@@ -254,18 +282,31 @@ const styles = StyleSheet.create({
     fontSize:22,
     alignSelf:'center',
     marginLeft:10,
-    width:100
+    width:150
   }, 
   button: {
     // display:'flex',
     alignSelf:'center',
-    marginLeft: 100, 
+    marginLeft: 50, 
     backgroundColor: '#6d91d9',
     borderRadius:10,
     // justifyContent:'right'
     // justifyContent:'flex-end',
 
-  }, 
+  },
+  friendsButton: {
+    backgroundColor: '#FFFFFF',
+    marginTop: 5,
+    marginBottom: 5,
+    borderRadius:10,
+  },
+  friendsButtonText: {
+    color: "#000000",
+    fontSize:17,
+    padding: 10,
+    fontWeight: 'bold',
+    alignSelf: 'center',
+  },
   buttonText: {
     color: "#FFFFFF",
     fontSize:17,

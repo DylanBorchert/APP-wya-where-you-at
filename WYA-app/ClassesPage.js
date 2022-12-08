@@ -81,7 +81,7 @@ const ClassesPage = ({ navigation }) => {
         return unsubscribe;
     }, [navigation]);
 
-    createClassList = () => {
+    const createClassList = () => {
         return schedule.map(c => {
             const id = c[0];
             const name = c[1];
@@ -121,7 +121,7 @@ const ClassesPage = ({ navigation }) => {
             </View>
             
                 <View>
-                    {this.createClassList()}
+                    {createClassList()}
                 </View>
             </ScrollView>
 
