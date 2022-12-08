@@ -17,6 +17,7 @@ const FriendlistPage = ({navigation}) =>  {
   
     const [friends, setFriends] = useState([]);
     const {state} = React.useContext(AuthContext);
+    const [name, setName] = useState('');
     const [clickedItem, setClickedItem] = useState("");
     const [modalVisible, setModalVisible] = useState(false);
     const [itemPic, setItemPic] = useState(0);
@@ -32,7 +33,31 @@ const FriendlistPage = ({navigation}) =>  {
       {id:5, image: require("./images/koala.png")},
      ];
 
+     const getName = async () => {
+    
+      try {
+        //get user info from database
+        const response = await fetch(`http://35.226.48.108:8080/api/users/${state.email}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+          //update push token
+        var data = await response.json();
+        setName(data[0]?.fname);
+        setProfilePic(data[0]?.profile_pic);
+        profilePicString = profilePic;
+        console.log(profilePic)
+      } catch (err) {
+        console.log(err);
+      }
+  
+    }
+
     useEffect(() => {
+
+      getName();
       const unsubscribe = navigation.addListener('focus', () => {
         getUserSchedule();
         fetch(`http://35.226.48.108:8080/api/friends/${state.email}`)
@@ -77,7 +102,7 @@ const FriendlistPage = ({navigation}) =>  {
             body : JSON.stringify({
               "pushToken": friendToken,
               "title": "Boop!",
-              "body": `${friendName} has booped you!`,
+              "body": `${name} has booped you!`,
               data: {
                 "data": "goes here"
               }
