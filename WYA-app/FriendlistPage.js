@@ -69,7 +69,7 @@ const FriendlistPage = ({navigation}) =>  {
       }
       try {
           //new boop can send data and custom messages
-          await fetch(`http://35.226.48.108:8080/boop/${friendToken}`, {
+          await fetch(`http://35.226.48.108:8080/boop/`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json"
@@ -77,14 +77,12 @@ const FriendlistPage = ({navigation}) =>  {
             body : JSON.stringify({
               "pushToken": friendToken,
               "title": "Boop!",
-              "body": `${state.name} has booped you!`,
+              "body": `${friendName} has booped you!`,
               data: {
                 "data": "goes here"
               }
             })
           });
-          //old boop with old server
-          //await fetch(`http://35.226.48.108:8080/boop/${friendToken}`, {method: "GET",});
         } catch (err) {
           console.log(err);
         }
