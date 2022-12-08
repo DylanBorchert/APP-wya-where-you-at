@@ -60,6 +60,35 @@ const FriendlistPage = ({navigation}) =>  {
       //goes to users classes "profile"
       this.props.navigation.navigate('Classes');
     }
+
+    const boopFriend = async (friendToken, friendName) => {
+      console.log(friendToken);
+      if(friendToken === null) {
+        alert(`${friendName} has not set up their notifications yet!`);
+        return;
+      }
+      try {
+          //new boop can send data and custom messages
+          await fetch(`http://35.226.48.108:8080/boop/${friendToken}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body : JSON.stringify({
+              "pushToken": friendToken,
+              "title": "Boop!",
+              "body": `${state.name} has booped you!`,
+              data: {
+                "data": "goes here"
+              }
+            })
+          });
+          //old boop with old server
+          //await fetch(`http://35.226.48.108:8080/boop/${friendToken}`, {method: "GET",});
+        } catch (err) {
+          console.log(err);
+        }
+    }
     // const goToFriendsProfile = (email) => {
     //   setFriendEmail(email);
     //   console.log(friendEmail)
@@ -217,7 +246,7 @@ const FriendlistPage = ({navigation}) =>  {
                     <View style={styles.box}>
                         <Image style={styles.image} source={data[item.profile_pic].image}/>
                         <Text style={styles.username}>{item.fname} {"\n"}<Text style={styles.statusText}>{item.status}</Text></Text>
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity style={styles.button} onPress={() => boopFriend(item.push_token, item.fname)}>
                          <Text style={styles.buttonText}>Boop</Text>
                         </TouchableOpacity>
                     </View>
