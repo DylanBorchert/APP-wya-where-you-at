@@ -16,8 +16,9 @@ import { TouchableHighlight } from 'react-native-gesture-handler';
 import {Context as AuthContext} from '../context/AuthContext';
 // import './images';
 import profilePicString from './Profile';
+import FriendRequests from './FriendRequests';
 
-const AddFriends = () =>  {
+const AddFriends = ({navigation}) =>  {
   
     const [friends, setFriends] = useState([]);
     const {state} = React.useContext(AuthContext);
@@ -39,16 +40,17 @@ const AddFriends = () =>  {
     console.log(state)
 
     useEffect(() => {
-         
-      fetch(`http://35.226.48.108:8080/api/friends/Find/${state.email}`)
-          .then((resp) => resp.json())
-          .then(result => {
-            // console.log(result);
-          setFriends(result);
-              
+      const unsubscribe = navigation.addListener('focus', () => {
+        fetch(`http://35.226.48.108:8080/api/friends/Find/${state.email}`)
+        .then((resp) => resp.json())
+        .then(result => {
+          // console.log(result);
+          setFriends(result);    
           })
+      })
+      return unsubscribe;
 
-    }, []);
+    }, [navigation]);
 
   
   
@@ -67,6 +69,8 @@ const AddFriends = () =>  {
           }
         });
         alert("Friend request sent!");
+        navigation.navigate('FriendRequests');
+        navigation.navigate('AddFriends');
       } catch (err) {
         console.log(err);
       }

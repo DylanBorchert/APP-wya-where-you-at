@@ -17,7 +17,7 @@ import {Context as AuthContext} from '../context/AuthContext';
 // import './images';
 import profilePicString from './Profile';
 
-const FriendRequests = () =>  {
+const FriendRequests = ({navigation}) =>  {
   
     const [friends, setFriends] = useState([]);
     const {state} = React.useContext(AuthContext);
@@ -39,16 +39,16 @@ const FriendRequests = () =>  {
     console.log(state)
 
     useEffect(() => {
-         
-      fetch(`http://35.226.48.108:8080/api/friends/requests/${state.email}`)
-          .then((resp) => resp.json())
-          .then(result => {
-            // console.log(result);
-          setFriends(result);
-              
-          })
-
-    }, []);
+        const unsubscribe = navigation.addListener('focus', () => {
+            fetch(`http://35.226.48.108:8080/api/friends/requests/${state.email}`)
+                .then((resp) => resp.json())
+                .then(result => {
+              // console.log(result);
+                setFriends(result);
+            })
+        })
+        return unsubscribe;
+    }, [navigation]);
 
   
   
@@ -67,6 +67,8 @@ const FriendRequests = () =>  {
               }
             });
             alert("Friend request accepted!");
+            navigation.navigate('AddFriends');
+            navigation.navigate('FriendRequests');
           } catch (err) {
             console.log(err);
           }
