@@ -33,15 +33,18 @@ const FriendlistPage = ({navigation}) =>  {
      ];
 
     useEffect(() => {
-      getUserSchedule();
-      fetch(`http://35.226.48.108:8080/api/friends/${state.email}`)
-          .then((resp) => resp.json())
-          .then(result => {
-          setFriends(result);
-              
-          })
+      const unsubscribe = navigation.addListener('focus', () => {
+        getUserSchedule();
+        fetch(`http://35.226.48.108:8080/api/friends/${state.email}`)
+            .then((resp) => resp.json())
+            .then(result => {
+            setFriends(result);
+                
+            })
+      })
+      return unsubscribe;
 
-    }, []);
+    }, [navigation]);
 
     const addFriendsHandler = () => {
       navigation.navigate('AddFriends');
