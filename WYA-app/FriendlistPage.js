@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   FlatList,
+  ScrollView,
   Pressable,
   Modal,
 } from 'react-native';
@@ -20,8 +21,9 @@ const FriendlistPage = ({navigation}) =>  {
     const [modalVisible, setModalVisible] = useState(false);
     const [itemPic, setItemPic] = useState(0);
     const [userEmail, setUserEmail] = useState("");
-
-     const data =  [
+    const [schedule, setSchedule] = useState([]);
+    const [visible, setVisible] = useState(false);
+    const data =  [
       {id:0, image: require("./images/bull.png")},
       {id:1, image: require("./images/chick.png")},
       {id:2, image: require("./images/lemur.png")},
@@ -31,7 +33,7 @@ const FriendlistPage = ({navigation}) =>  {
      ];
 
     useEffect(() => {
-         
+      getUserSchedule();
       fetch(`http://35.226.48.108:8080/api/friends/${state.email}`)
           .then((resp) => resp.json())
           .then(result => {
@@ -41,12 +43,82 @@ const FriendlistPage = ({navigation}) =>  {
 
     }, []);
 
-    // const goToFriendsProfile = (email) => {
-    //   setFriendEmail(email);
-    //   console.log(friendEmail)
-    //   navigation.navigate('FriendProfile', {friendEmail});
-    // }
+    const createClassList = () => {
+      return schedule.map(c => {
+          const id = c[0];
+          const name = c[1];
+          const code = c[2];
+          const subject = c[4];
+          const days = c[6];
+          const start = c[7];
+          const end = c[8];
+          const room = c[9];
+          return (
+              <View key={id} style={styles.classBlock}>   
+                  <Text>Name: {subject} {code} - {name}</Text>
+                  <Text>Days of the Week: {days}</Text>
+                  <Text>Time: {start} - {end}</Text>
+                  <Text> Room: {room}</Text>
+              </View>
+          );
+      });
+  }
 
+  const showClasses = () =>{
+    if(visible) {
+      return (
+      <View style={styles.page}>
+              <ScrollView style={styles.scrollViewContainer} >
+              <View>
+                  <Text style={styles.title}>Classes:</Text>
+              </View>
+            {createClassList()}
+                  
+              </ScrollView>
+          </View >
+        )
+
+    }
+
+
+  }
+
+    const getUserSchedule = async () => {
+      try {
+          const response = await fetch(`http://35.226.48.108:8080/api/schedules/${userEmail}`);
+          const responseJSON = await response.json();
+          const courses = await fetch("http://35.226.48.108:8080/api/courses");
+          const coursesJSON = await courses.json();
+
+          let userSchedule = [];
+          if(responseJSON) {
+              for (let r of responseJSON) {
+                  for (let c of coursesJSON) {
+                      if (c.id === r.course_id) {
+                          let course = [];
+                          course.push(c.id);
+                          course.push(c.name);
+                          course.push(c.course_code);
+                          course.push(c.course_section);
+                          course.push(c.course_subject);
+                          course.push(c.course_type);
+                          course.push(c.days_of_week);
+                          course.push(c.start_time);
+                          course.push(c.end_time);
+                          course.push(c.room);
+                          course.push(c.semester);
+                          userSchedule.push(course);
+                      }
+                  }
+              }
+
+
+              setSchedule(userSchedule);
+          }
+      } catch (error) {
+          console.error(error);
+      }
+  };
    
 
 
@@ -63,11 +135,9 @@ const FriendlistPage = ({navigation}) =>  {
                     transparent={true}
                     visible={modalVisible}
                     onRequestClose={() => {
-                    Alert.alert("Modal has been closed.");
                     setModalVisible(!modalVisible);
                     }}
                     >     
-                    {console.log(clickedItem)}
                     <View style={styles.centeredView}>
                     <View style={styles.modalView}>       
                     <View style={tw`w-full h-full bg-primary p-3`}>
@@ -80,15 +150,29 @@ const FriendlistPage = ({navigation}) =>  {
                     </View>
                   </View>
                   <View style={tw`flex flex-row justify-around pt-4`}>
-                    <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`}>
+                    <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`} onPress={()=>{getUserSchedule(); setVisible(true)}}>
                       <Text style={tw`text-center`}>Classes</Text>
                     </TouchableOpacity>
-                  <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`} onPress={() => setModalVisible(!modalVisible)}>
+                  <TouchableOpacity style={tw`h-10 w-32 bg-white rounded-xl flex justify-center`} onPress={() => {setVisible(false); setModalVisible(!modalVisible)}}>
                     <Text style={tw`text-center`}>Close</Text>
                   </TouchableOpacity>
                   </View>
+                {/* <View style={styles.page}>
+            <ScrollView style={styles.scrollViewContainer} >
+            <View>
+                <Text style={styles.title}>Classes:</Text>
+            </View>
+            
+                
+                    {createClassList()}
+                
+            </ScrollView>
+        </View > */}
+
+      {showClasses()}
                 </View>
                 </View>
+
                 </View>
               
                   </Modal>
@@ -226,7 +310,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 10
   },
-  containerModal: {
-    
-  }
+  scrollViewContainer: {
+    marginTop:10,
+    borderRadius: 10,
+    backgroundColor: '#FFFFFF',
+    height: 450,
+    padding: 10,
+},
+classBlock: {
+  backgroundColor: '#FFCF99',
+  borderRadius: 20,
+  // width: 450,
+  padding: 15,
+  lineHeight: 5,
+  // alignSelf: 'left',
+  margin: 15
+},
 });
