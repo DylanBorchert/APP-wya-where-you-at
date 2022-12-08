@@ -6,7 +6,8 @@ An account is required to access the prototype. After following the link, click 
 
 Once you're in the right file, it is best viewed by clicking the "Present" button in the upper-right corner while on the "Complete Prototype" page. That will take you to an interactive demo of the app.
 
-#Enviroment setup
+# Enviroment setup 
+
 1. Clone this repo
 2. Install vs code [here](https://code.visualstudio.com/)
 3. Install React Native Tools [here](https://marketplace.visualstudio.com/items?itemName=msjsdiag.vscode-react-native)
