@@ -3,8 +3,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Signin from './WYA-app/Signin';
-import SignUpPage from './WYA-app/SignUpPage';
-import { StyleSheet, Text, View, Platform } from 'react-native';
+import SignUp from './WYA-app/SignUp';
+import { StyleSheet, Text, View, Platform, PermissionsAndroid } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
 import {Provider as AuthProvider} from './context/AuthContext.js';
 import {Context as AuthContext} from './context/AuthContext';
@@ -14,9 +14,13 @@ import Friendlist from './WYA-app/FriendlistPage';
 import ClassesPage from './WYA-app/ClassesPage';
 import StartPage from './WYA-app/StartPage';
 import AddClassesPage from './WYA-app/AddClassesPage';
+import AddFriends from './WYA-app/AddFriends';
+import FriendRequests from './WYA-app/FriendRequests';
 
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
+import Profile from './WYA-app/Profile';
+import tw from './lib/tailwind';
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -28,17 +32,18 @@ Notifications.setNotificationHandler({
 
 const AuthStack = createStackNavigator();
 function AuthFlow() {
+  const {state} = React.useContext(AuthContext);
   return (
+    
     <AuthStack.Navigator>
       <AuthStack.Screen
-        options={{headerShown: false}}
         name="Signin"
         component={Signin}
+        initialParams={{authState: state}}
       />
       <AuthStack.Screen
-        options={{headerShown: false}}
         name="Signup"
-        component={SignUpPage}
+        component={SignUp}
       />
     </AuthStack.Navigator>
   );
@@ -60,7 +65,7 @@ function HomeFlow() {
       />   
       <Tab.Screen 
         name="Profile" 
-        component={StartPage} 
+        component={Profile} 
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
@@ -86,8 +91,7 @@ function HomeFlow() {
 const Stack = createStackNavigator();
 function App() {
 
-  const {state} = React.useContext(AuthContext);
-  console.log(state); 
+  const {state} = React.useContext(AuthContext); 
   
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
@@ -95,11 +99,15 @@ function App() {
   const responseListener = useRef();
 
   useEffect(() => {
-    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+    registerForPushNotificationsAsync().then(token => {
+      setExpoPushToken(token);
+      state.pushtoken = token;
+    });
 
     // This listener is fired whenever a notification is received while the app is foregrounded
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
       setNotification(notification);
+      console.log(notification);
     });
 
     // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
@@ -121,6 +129,7 @@ function App() {
             <Stack.Screen
               name="Login"
               component={AuthFlow}
+              options={{headerShown: false}}
             />
           </>
         ) : (
@@ -131,6 +140,8 @@ function App() {
               component={HomeFlow}
               />
             <Stack.Screen name="AddClass" component={AddClassesPage} />
+            <Stack.Screen name="AddFriends" component={AddFriends}/>
+            <Stack.Screen name="FriendRequests" component={FriendRequests}/>
           </>
         )}
       </Stack.Navigator>
