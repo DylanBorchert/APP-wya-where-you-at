@@ -145,9 +145,9 @@ const FriendlistPage = ({navigation}) =>  {
     if(visible) {
       return (
       <View style={styles.page}>
-              <ScrollView key={classList}style={styles.scrollViewContainer} >
-              <View key={container}>
-                  <Text key={text}style={styles.title}>Classes:</Text>
+              <ScrollView style={styles.scrollViewContainer} >
+              <View >
+                  <Text style={styles.title}>Classes:</Text>
               </View>
             {createClassList()}
                   
