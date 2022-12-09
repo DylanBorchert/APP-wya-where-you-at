@@ -38,33 +38,42 @@ const SignUp = () => {
         <ScrollView style={tw`w-full h-full`}>
 
           <View style={tw`flex flex-col justify-around m-auto h-full w-full`}>
+          <Text style={styles.label}>Email:</Text>
             <TextInput 
               style={tw`inputField my-3`} 
               placeholder="Email" 
               onChangeText={(text) => setEmail(text)}
             />
+  
+          <Text style={styles.label}>UserName:</Text>
             <TextInput 
               style={tw`inputField my-3`} 
               placeholder="User Name" 
               onChangeText={(text) => setUserName(text)}
             />
+          <Text style={styles.label}>First Name:</Text>
             <TextInput 
               style={tw`inputField my-3`} 
               placeholder="first Name" 
               onChangeText={(text) => setFname(text)}
             />
+          <Text style={styles.label}>Password:</Text>
             <TextInput
               style={tw`inputField my-3`}
               secureTextEntry={true}
               placeholder="Password"
               onChangeText={(text) => setPassword(text)}
             />
+          <Text style={styles.label}>Confirm Password:</Text>
+
             <TextInput
               style={tw`inputField my-3`}
               secureTextEntry={true}
-              placeholder="Repeat Password"
+              placeholder="Confirm Password"
               onChangeText={(text) => setPassword2(text)}
             />
+          <Text style={styles.label}>Phone Number:</Text>
+
             <TextInput 
               style={tw`inputField my-3`} 
               placeholder="Phone Number" 
@@ -86,7 +95,18 @@ const SignUp = () => {
 
 export default SignUp;
 
-// const styles = StyleSheet.create({
+
+
+
+const styles = StyleSheet.create({
+  label: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginLeft: 15,
+    marginBottom: 5
+},
+});
 //   // at some point add a notification to tell the  user we have created their account.
 //   containter: {
 //     flex: 1,
