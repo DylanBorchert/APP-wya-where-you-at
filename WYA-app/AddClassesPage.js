@@ -253,19 +253,30 @@ const AddClassesPage = ({ navigation }) => {
                 }}
                 propagateSwipe={true}
             >
-                <ScrollView >
                     <View style={styles.modalContainer}>
+                <ScrollView >
                     <View>
-                        <TextInput style={styles.inputField} onChangeText={newText => setClassName(newText)} placeholder="Name (Ex: Software Engineering)" />
-                        <TextInput style={styles.inputField} onChangeText={newText => setClassSubject(newText)} placeholder="Subject (Ex: COMP)" />
-                        <TextInput style={styles.inputField} onChangeText={newText => setClassSection(newText)} placeholder="Section (Ex: 001)" />
+                        <Text style={styles.label}>Name:</Text>
+                        <TextInput style={styles.inputField} placeholderTextColor="#D3D3D3"  onChangeText={newText => setClassName(newText)} placeholder="Name (Ex: Software Engineering)" />
+                        <Text style={styles.label}>Subject:</Text>
+                        <TextInput style={styles.inputField} placeholderTextColor="#D3D3D3" onChangeText={newText => setClassSubject(newText)} placeholder="Subject (Ex: COMP)" />
+                        <Text style={styles.label}>Course Code:</Text>
+                        <TextInput style={styles.inputField} placeholderTextColor="#D3D3D3" onChangeText={newText => setClassCode(newText)} placeholder="Course Code (Ex: 3504)" />
+                        <Text style={styles.label}>Section:</Text>
+                       
+                        <TextInput style={styles.inputField} placeholderTextColor="#D3D3D3" onChangeText={newText => setClassSection(newText)} placeholder="Section (Ex: 001)" />
                         <SelectList style={styles.dropdownView} data={classTypes} placeholder='Type of Class' save='key' setSelected={(key) => setClassType(key)} />
-                        <TextInput style={styles.inputField} onChangeText={newText => setClassDaysOfWeek(newText)} placeholder="Days of the Week (Ex: M/T/W/TH/F)" />
+                        <Text style={styles.label}>Days of the Week:</Text>
+                        
+                        <TextInput style={styles.inputField} placeholderTextColor="#D3D3D3" onChangeText={newText => setClassDaysOfWeek(newText)} placeholder="Days of the Week (Ex: M/T/W/TH/F)" />
                         <SelectList style={styles.dropdownView} data={startTime} placeholder='Start Time' save='key' setSelected={(key) => setClassStartTime(key)} />
                         <SelectList style={styles.dropdownView} data={endTime} placeholder='End Time' save='key' setSelected={(key) => setClassEndTime(key)} />
-                        <TextInput style={styles.inputField} onChangeText={newText => setClassCode(newText)} placeholder="Course Code (Ex: 3504)" />
-                        <TextInput style={styles.inputField} onChangeText={newText => setClassSemester(newText)} placeholder="Semester (Ex: F2022)" />
-                        <TextInput style={styles.inputField} onChangeText={newText => setClassRoom(newText)} placeholder="Classroom (Ex: E2206)" />
+                        <Text style={styles.label}>Semester:</Text>
+                        
+                        <TextInput style={styles.inputField} placeholderTextColor="#D3D3D3" onChangeText={newText => setClassSemester(newText)} placeholder="Semester (Ex: F2022)" />
+                        <Text style={styles.label}>Classroom:</Text>
+                        
+                        <TextInput style={styles.inputField} placeholderTextColor="#D3D3D3" onChangeText={newText => setClassRoom(newText)} placeholder="Classroom (Ex: E2206)" />
                     </View>
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity style={styles.buttons} onPress={() => setModalVisible(!modalVisible)}>
@@ -275,27 +286,10 @@ const AddClassesPage = ({ navigation }) => {
                             <Text style={styles.buttonText}>Submit</Text>
                         </TouchableOpacity>
                     </View>
-                    </View>
                 </ScrollView>
+                    </View>
             </Modal>
-            {/* <Modal
-                animationType='slide'
-                transparent={true}
-                visible={alertModalVisible}
-                onRequestClose={() => {
-                    setModalVisible(!alertModalVisible);
-                }}
-                
-            >
-                <View style={styles.alert}>
-                    <Text>Class Was Added successfully</Text>
-                
-                <TouchableOpacity style={styles.buttons} onPress={() => setAlertModalVisible(!alertModalVisible)}>
-                    <Text style={styles.buttonText}>Close</Text>
-                </TouchableOpacity>
-                </View>
-
-            </Modal> */}
+           
             <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
                 <Text style={styles.classModalButton}>Add new Class</Text>
             </TouchableOpacity>
@@ -308,20 +302,29 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         height: 50,
         width: 150,
-        marginTop: 20,
+        // marginTop: 20,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 20,
+        // marginBottom: 20,
         borderRadius: 13,
         backgroundColor: "white",
-    },
+        margin: 10
+    }, 
     buttonText: {
         fontSize: 15,
         setButtonText: "white",
         fontWeight: "bold",
     },
-    inputField: {
+    label: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginLeft: 15,
+        marginBottom: 5
+    },
 
+
+    inputField: {
         fontSize: 20,
         fontWeight: "bold",
         backgroundColor: "white",
@@ -336,14 +339,16 @@ const styles = StyleSheet.create({
         paddingTop: 20,
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-evenly'
+        justifyContent: 'space-between',
+        marginBottom:100
     },
     dropdownView: {
         borderRadius: 13,
         marginBottom: 30,
         alignContent: 'stretch',
-        backgroundColor: "white",
-        width: 350
+        color: '#FFFFFF',
+        width: 350,
+        margin: 20
     },
     container: {
         justifyContent: 'center',
@@ -358,12 +363,22 @@ const styles = StyleSheet.create({
     scrollViewContainer: {
         paddingTop: 30,
         borderRadius: 10,
-        height: 620,
+        // height: 620,
         padding: 10,
         alignSelf: 'center'
     },
     modalContainer: {
-        backgroundColor: '#FFCF99',
+        padding: 15, 
+        paddingTop: 50,
+        backgroundColor: '#6d91d9',
+        // flex: 1,
+       
+        // justifyContent: "center",
+        alignItems: "center",
+        // marginTop: 10,
+        height: 900,
+        
+        // alignContent: 'center'
     },
     classBlock: {
         backgroundColor: '#FFCF99',
