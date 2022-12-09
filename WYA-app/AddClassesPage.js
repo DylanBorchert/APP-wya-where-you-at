@@ -281,7 +281,7 @@ const AddClassesPage = ({ navigation }) => {
                         <TouchableOpacity style={styles.buttons} onPress={() => setModalVisible(!modalVisible)}>
                             <Text style={styles.buttonText}>Cancel</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.buttons} onPress={() => ClassesPageHandler}>
+                        <TouchableOpacity style={styles.buttons} onPress={() => ClassesPageHandler()}>
                             <Text style={styles.buttonText}>Submit</Text>
                         </TouchableOpacity>
                     </View>
