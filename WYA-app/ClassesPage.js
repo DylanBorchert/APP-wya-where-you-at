@@ -1,11 +1,11 @@
 import { StyleSheet, Text, TouchableWithoutFeedback, View, Button, TouchableOpacity, TextInput, ScrollView, Touchable } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import {Context as AuthContext} from '../context/AuthContext';
+import { Context as AuthContext } from '../context/AuthContext';
 
 const ClassesPage = ({ navigation }) => {
 
     const [schedule, setSchedule] = useState([]);
-    const {state} = React.useContext(AuthContext);
+    const { state } = React.useContext(AuthContext);
 
     const addClassHandler = () => {
         navigation.navigate('AddClass');
@@ -19,7 +19,7 @@ const ClassesPage = ({ navigation }) => {
             const coursesJSON = await courses.json();
 
             let userSchedule = [];
-            if(responseJSON) {
+            if (responseJSON) {
                 for (let r of responseJSON) {
                     for (let c of coursesJSON) {
                         if (c.id === r.course_id) {
@@ -49,32 +49,33 @@ const ClassesPage = ({ navigation }) => {
 
     const deleteClassHandler = async (classID) => {
         try {
-            const deleteResponse = await fetch("http://35.226.48.108:8080/api/schedules", 
-            {
-                method: 'DELETE',
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    'email': state.email,
-                    'course_id': classID
-                })
-            });
+            const deleteResponse = await fetch("http://35.226.48.108:8080/api/schedules",
+                {
+                    method: 'DELETE',
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        'email': state.email,
+                        'course_id': classID
+                    })
+                });
             if (deleteResponse.status == 200) {
                 console.log('Delete was successful');
+                alert("Course Deleted!");
             }
             navigation.navigate('AddClass');
-        navigation.navigate('Classes');
+            navigation.navigate('Classes');
 
         } catch (e) {
             console.error(e);
         }
-        
-        
+
+
     };
 
     useEffect(() => {
-    
+
         const unsubscribe = navigation.addListener('focus', () => {
             getUserSchedule();
         });
@@ -96,7 +97,7 @@ const ClassesPage = ({ navigation }) => {
             const semester = c[10];
             return (
                 <View key={id} style={styles.classBlock}>
-                    
+
                     <Text>Name: {subject} {code} - {name}</Text>
                     <Text>Section: {section}</Text>
                     <Text>Type: {type}</Text>
@@ -104,7 +105,7 @@ const ClassesPage = ({ navigation }) => {
                     <Text>Time: {start} - {end}</Text>
                     <Text>Semester: {semester}   Room: {room}</Text>
                     <TouchableOpacity onPress={() => deleteClassHandler(id)} style={styles.deleteButton} >
-                        <Text>X</Text>
+                        <Text style={styles.buttonText}>Delete Course</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -116,10 +117,10 @@ const ClassesPage = ({ navigation }) => {
 
         <View style={styles.page}>
             <ScrollView style={styles.scrollViewContainer}>
-            <View>
-                <Text style={styles.title}>Classes:</Text>
-            </View>
-            
+                <View>
+                    <Text style={styles.title}>Classes:</Text>
+                </View>
+
                 <View>
                     {createClassList()}
                 </View>
@@ -130,6 +131,8 @@ const ClassesPage = ({ navigation }) => {
                     <Text style={styles.buttonText}>Add Class(es)</Text>
                 </TouchableOpacity>
             </View>
+
+
 
         </View >
     )
@@ -155,7 +158,6 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 15,
-        setButtonText: "white",
         fontWeight: "bold",
     },
     classBlock: {
@@ -182,8 +184,14 @@ const styles = StyleSheet.create({
 
     },
     deleteButton: {
-        alignSelf: 'flex-end',
-    }
+        height: 40,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        borderRadius: 20,
+        paddingTop: 10,
+        marginTop: 10
+    },
+
 });
 
 export default ClassesPage;

@@ -49,7 +49,8 @@ const AddClassesPage = ({ navigation }) => {
             );
             const data = await response.json();
             if (response.status == 200) {
-                console.log("Class was successfully added")
+                console.log("Class was successfully added");
+                alert("Class was successfully added!");
             }
         } catch (error) {
             console.error("------------" + error);
@@ -204,7 +205,7 @@ const AddClassesPage = ({ navigation }) => {
                     <Text>Days of the Week: {days}</Text>
                     <Text>Time: {start} - {end}</Text>
                     <Text>Semester: {semester}   Room: {room}</Text>
-                    <TouchableOpacity style={styles.buttonContainer} onPress={() => addClassHandler(id)}>
+                    <TouchableOpacity style={styles.addClassesContainer} onPress={() => addClassHandler(id)}>
                         <Text style={styles.buttonText}>Add Class</Text>
                     </TouchableOpacity>
                 </View>
@@ -271,33 +272,16 @@ const AddClassesPage = ({ navigation }) => {
                         <TouchableOpacity style={styles.buttons} onPress={() => setModalVisible(!modalVisible)}>
                             <Text style={styles.buttonText}>Cancel</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.buttons} onPress={ClassesPageHandler}>
+                        <TouchableOpacity style={styles.buttons} onPress={() => ClassesPageHandler}>
                             <Text style={styles.buttonText}>Submit</Text>
                         </TouchableOpacity>
                     </View>
                     </View>
                 </ScrollView>
             </Modal>
-            {/* <Modal
-                animationType='slide'
-                transparent={true}
-                visible={alertModalVisible}
-                onRequestClose={() => {
-                    setModalVisible(!alertModalVisible);
-                }}
-                
-            >
-                <View style={styles.alert}>
-                    <Text>Class Was Added successfully</Text>
-                
-                <TouchableOpacity style={styles.buttons} onPress={() => setAlertModalVisible(!alertModalVisible)}>
-                    <Text style={styles.buttonText}>Close</Text>
-                </TouchableOpacity>
-                </View>
-
-            </Modal> */}
-            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                <Text style={styles.classModalButton}>Add new Class</Text>
+            
+            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)} style={styles.classModalButton}>
+                <Text style={styles.buttonText}>Add new Class</Text>
             </TouchableOpacity>
         </View>
     )
@@ -348,6 +332,7 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#6d91d9'
     },
     title: {
         fontSize: 40,
@@ -383,15 +368,24 @@ const styles = StyleSheet.create({
         display: 'flex',
     },
     classModalButton: {
-        fontSize: 20,
-        fontWeight: "bold",
-        backgroundColor: "white",
-        borderRadius: 10,
-        height: 50,
-        width: 250,
-        alignContent: 'center',
-        alignSelf: 'center',
-        alignItems: 'center'
+        height: 40,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        borderRadius: 20,
+        paddingTop: 10,
+        marginBottom: 10,
+        marginTop: 10,
+        width: 300
+        
+    },
+    addClassesContainer: {
+        height: 40,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        borderRadius: 20,
+        paddingTop: 10,
+        marginTop: 10
+        
     }
 })
 
