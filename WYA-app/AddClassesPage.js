@@ -87,8 +87,6 @@ const AddClassesPage = ({ navigation }) => {
         }
 
         setAlertModalVisible(!alertModalVisible);
-        // setModalVisible(!modalVisible);
-        // navigation.navigate('Classes');
     };
 
     const getClasses = async () => {
@@ -304,10 +302,8 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         height: 50,
         width: 150,
-        // marginTop: 20,
         justifyContent: 'center',
         alignItems: 'center',
-        // marginBottom: 20,
         borderRadius: 13,
         backgroundColor: "white",
         margin: 10
@@ -366,7 +362,6 @@ const styles = StyleSheet.create({
     scrollViewContainer: {
         paddingTop: 30,
         borderRadius: 10,
-        // height: 620,
         padding: 10,
         alignSelf: 'center'
     },
@@ -374,14 +369,10 @@ const styles = StyleSheet.create({
         padding: 15, 
         paddingTop: 50,
         backgroundColor: '#6d91d9',
-        // flex: 1,
        
-        // justifyContent: "center",
         alignItems: "center",
-        // marginTop: 10,
         height: 900,
         
-        // alignContent: 'center'
     },
     classBlock: {
         backgroundColor: '#FFCF99',
